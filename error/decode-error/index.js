@@ -102,13 +102,13 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'Your REST API is returning a 404 page. This is almost certainly a plugin or server configuration issue and not a problem with Redirection.'
+						'Your REST API is returning a 404 page. This is almost certainly an external plugin or server configuration issue.'
 					) }
 				</p>
 				<ul>
 					<li>
 						{ __(
-							'Can you access your {{api}}REST API{{/api}} without it redirecting? You will need to fix any errors.',
+							'Can you access your {{api}}REST API{{/api}} without it redirecting? If not then you will need to fix any issues.',
 							{
 								components: {
 									api: <ExternalLink url={ links.rootUrl } />,

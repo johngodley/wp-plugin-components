@@ -73,7 +73,6 @@ function MultiOptionDropdown( props ) {
 						isOpen ? 'wpl-multioption__button_enabled' : null
 					) }
 					onClick={ toggle }
-					disabled={ disabled }
 				>
 					{ shouldShowTitle( selected, hideTitle ) && title.length > 0 && <h5>{ title }</h5> }
 					{ badges && badgeList }
@@ -81,7 +80,9 @@ function MultiOptionDropdown( props ) {
 					<DropdownIcon />
 				</div>
 			) }
+			disabled={ disabled }
 			align="right"
+			matchMinimum
 			renderContent={ () => (
 				<div className={ classnames( 'wpl-multioption', className ) }>
 					{ options.map( ( option, key ) => (
