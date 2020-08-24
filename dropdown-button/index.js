@@ -11,7 +11,7 @@ import classnames from 'classnames';
 
 import Dropdown from '../dropdown';
 import './style.scss';
-import DropdownIcon from '../dropdown-menu/icon';
+import DropdownIcon from '../icons/dropdown';
 
 /**
  * A menu item.
