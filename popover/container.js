@@ -20,10 +20,14 @@ import PopoverArrow from './arrow';
  * @param {PopoverPosition|null} props.popoverPosition - The popover position, based on an existing DOM element
  * @param {DropdownPosition|null} props.position - Our position.
  * @param {object} props.children - Child components to show inside the popover.
+ * @param {object|null} [props.style=null] - Additional style params
  */
 function PopoverContainer( props ) {
 	const { position, children, popoverPosition, align, hasArrow } = props;
-	const [ style, setStyle ] = useState( { arrow: {}, content: { visibility: 'none', ...position } } );
+	const [ style, setStyle ] = useState( {
+		arrow: {},
+		content: { visibility: 'none', ...position },
+	} );
 	const popoverRef = useCallback(
 		( node ) => {
 			if ( node ) {
@@ -44,7 +48,11 @@ function PopoverContainer( props ) {
 
 			<div
 				className="wpl-popover__content"
-				style={ { ...style.content, visibility: position && position.left ? 'visible' : 'hidden' } }
+				style={ {
+					...style.content,
+					visibility: position && position.left ? 'visible' : 'hidden',
+					...( props.style !== null ? props.style : {} ),
+				} }
 				ref={ popoverRef }
 			>
 				{ children }

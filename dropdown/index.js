@@ -2,7 +2,7 @@
  * External dependencies
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import classnames from 'classnames';
 
 /**
@@ -40,17 +40,12 @@ import Popover, { getPopoverPosition } from '../popover';
  * @param {('left'|'right'|'centre')} [props.align='left'] - Align the dropdown on the `left` or `right`.
  * @param {boolean} [props.hasArrow=false] - Show a small arrow pointing at the toggle when the dropdown is toggled.
  * @param {boolean} [props.disabled=false] - Is the dropdown disabled
+ * @param {boolean} [props.matchMinimum=false] - Match minimum width of toggle
  * @param {contentRender} props.renderContent - Called when the dropdown menu should be shown
  * @param {toggleRender} props.renderToggle - Called to display the toggle.
  */
 function Dropdown( props ) {
-	const {
-		renderContent,
-		className,
-		renderToggle,
-		align = 'left',
-		hasArrow = false,
-	} = props;
+	const { renderContent, className, renderToggle, align = 'left', hasArrow = false, matchMinimum = false } = props;
 	const [ isShowing, setShowing ] = useState( false );
 	const [ togglePosition, setTogglePosition ] = useState( null );
 	const toggleRef = useRef( null );
@@ -60,8 +55,11 @@ function Dropdown( props ) {
 	 * @param {Event} ev - Event
 	 */
 	const toggleDropdown = ( ev ) => {
+		const position = getPopoverPosition( toggleRef.current );
+
 		ev && ev.stopPropagation();
-		setTogglePosition( getPopoverPosition( toggleRef.current ) );
+
+		setTogglePosition( position );
 		setShowing( ! isShowing );
 	};
 
@@ -78,6 +76,7 @@ function Dropdown( props ) {
 					className={ className }
 					onClose={ () => setShowing( false ) }
 					popoverPosition={ togglePosition }
+					style={ matchMinimum ? { minWidth: togglePosition.width + 'px' } : null }
 				>
 					{ renderContent( () => setShowing( false ) ) }
 				</Popover>

@@ -2,7 +2,7 @@
  * External dependencies
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import classnames from 'classnames';
 
@@ -49,9 +49,10 @@ import './style.scss';
  * @param {toggleCallback} [props.onClose] - Callback when the popover is closed.
  * @param {contentRender} props.children - Called when the popover should be shown
  * @param {} props.popoverPosition - Position where the popover should be shown
+ * @param {object|null} [props.style=null] - Additional style params
  */
 function Popover( props ) {
-	const { children, className, align = 'left', onClose, hasArrow = false, popoverPosition } = props;
+	const { children, className, align = 'left', onClose, hasArrow = false, popoverPosition, style = null } = props;
 
 	/**
 	 * Hide the dropdown
@@ -81,6 +82,7 @@ function Popover( props ) {
 				popoverPosition={ popoverPosition }
 				align={ align }
 				hasArrow={ hasArrow }
+				style={ style }
 			>
 				{ children }
 			</PopoverContainer>
