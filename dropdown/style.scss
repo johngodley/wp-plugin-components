@@ -1,0 +1,7 @@
+@import "node_modules/@wordpress/base-styles/colors";
+
+.wpl-popover__toggle {
+	display: inline-block;
+	flex: none !important;
+	cursor: pointer;
+}
