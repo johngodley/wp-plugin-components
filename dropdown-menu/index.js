@@ -8,7 +8,7 @@ import React from 'react';
  * Internal dependencies
  */
 import Dropdown from '../dropdown';
-import DropdownIcon from './icon';
+import DotMenuIcon from '../icons/dot-menu';
 import './style.scss';
 
 /**
@@ -26,7 +26,7 @@ function DropdownMenu( { menu, align = 'right', disabled = false } ) {
 			hasArrow
 			renderToggle={ ( isOpen, toggle ) => (
 				<button type="button" className="wpl-dropdownmenu" onClick={ toggle } disabled={ disabled }>
-					<DropdownIcon />
+					<DotMenuIcon isOpen={ isOpen } />
 				</button>
 			) }
 			renderContent={ ( toggle ) => (

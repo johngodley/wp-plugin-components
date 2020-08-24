@@ -12,7 +12,7 @@ import classnames from 'classnames';
 import Dropdown from '../dropdown';
 import MultiOption from './multi-option';
 import getBadgeList from './badge-list';
-import DropdownIcon from '../dropdown-menu/icon';
+import DropdownIcon from '../icons/dropdown';
 import './style.scss';
 
 /** @typedef {import('./multi-option/index.js').applyCallback} applyCallback */
