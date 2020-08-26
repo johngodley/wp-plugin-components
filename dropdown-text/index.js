@@ -59,8 +59,13 @@ function DropdownText( props ) {
 	}
 
 	function changeValue( ev ) {
-		debouncedDelay( ev.target.value );
 		onChange( ev.target.value );
+
+		if ( ev.target.value.trim().length > 0 ) {
+			debouncedDelay( ev.target.value);
+		} else {
+			setOptions( [] );
+		}
 	}
 
 	function onSelect( value ) {
