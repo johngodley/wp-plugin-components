@@ -53,8 +53,10 @@
 	height: 25px;
 }
 
-input.current-page {
+.tablenav-pages input.current-page {
 	width: 60px;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
 .loader-wrapper {
