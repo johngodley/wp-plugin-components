@@ -14,6 +14,7 @@ import DisplayNonceError from './display/error-nonce';
 import DisplayDefaultError from './display/error-default';
 import DisplayKnownError from './display/error-known';
 import DisplayFixedError from './display/error-fixed';
+import DisplayApiError from './display/error-api';
 import './style.scss';
 
 function ErrorPaging( { current, change, total } ) {
@@ -35,8 +36,12 @@ function ErrorPaging( { current, change, total } ) {
  * @param {string} type - Chosen type
  */
 function getErrorType( errors, type ) {
-	if ( errors.length > 0 && errors[ 0 ].code === 'rest_cookie_invalid_nonce' ) {
+	if ( errors[ 0 ].code === 'rest_cookie_invalid_nonce' ) {
 		return DisplayNonceError;
+	}
+
+	if ( errors[ 0 ].code === '400' ) {
+		return DisplayApiError;
 	}
 
 	if ( type === 'error' ) {
