@@ -24,7 +24,7 @@ const MultiOptionItem = ( { option, onSelect, selected } ) => {
 					type="checkbox"
 					name={ value }
 					onChange={ onSelect }
-					checked={ selected.indexOf( value ) !== -1 }
+					checked={ selected.indexOf( value ) !== -1 || selected.indexOf( parseInt( value, 10 ) ) !== -1 }
 				/>
 
 				{ label }

@@ -26,7 +26,7 @@ function findOption( options, optionValue ) {
 	for ( let index = 0; index < options.length; index++ ) {
 		const option = options[ index ];
 
-		if ( option.value === optionValue ) {
+		if ( option.value === optionValue || optionValue === parseInt( option.value, 10 ) ) {
 			return option;
 		}
 
