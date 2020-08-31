@@ -40,7 +40,7 @@ function getErrorType( errors, type ) {
 		return DisplayNonceError;
 	}
 
-	if ( errors[ 0 ].code === '400' ) {
+	if ( errors[ 0 ]?.jsonData?.status === 400 ) {
 		return DisplayApiError;
 	}
 
@@ -64,14 +64,16 @@ function getErrorType( errors, type ) {
  *
  * @param {object} props - Component props
  * @param {boolean} [props.mini] - Show a small version for inline usage
- * @param {Error[]|ApiError[]} props.errors - Array of errors
+ * @param {Error[]|Error|ApiError[]} props.errors - Array of errors or single error
+ * @param {string[]} [props.details] - Array of site details
  * @param {ClearCallback} [props.onClear] - Callback to clear the error
  * @param {string|React|Element} props.children - Child components
  * @param {string|React} [props.title] - Title
  * @param {('error'|'fixed')} [props.type] - Type of error
  */
 function Error( props ) {
-	const { onClear, mini = false, type = '', errors = [] } = props;
+	const { onClear, mini = false, type = '' } = props;
+	const errors = Array.isArray( props.errors ) ? props.errors : [ props.errors ];
 	const [ currentError, setCurrentError ] = useState( 0 );
 
 	useEffect(() => {

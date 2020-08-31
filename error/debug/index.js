@@ -56,7 +56,7 @@ function getDebug( error, versions, context ) {
 }
 
 function ErrorDebug( props ) {
-	const { error, mini, context, renderDebug, versions, noParse = false } = props;
+	const { error, mini, context, renderDebug, versions, noParse = false, details = [] } = props;
 	const [ showDebug, setShowDebug ] = useState( ! mini );
 
 	if ( ! showDebug ) {
@@ -78,7 +78,7 @@ function ErrorDebug( props ) {
 			{ renderDebug && renderDebug( debug.join( '\n' ) ) }
 
 			<p>
-				<TextareaAutosize readOnly cols={ 120 } value={ debug.join( '\n' ) } spellCheck={ false } />
+				<TextareaAutosize readOnly cols={ 120 } value={ details.concat( debug ).join( '\n' ) } spellCheck={ false } />
 			</p>
 		</>
 	);
