@@ -39,7 +39,12 @@ function Snackbar( props ) {
 	useEffect(() => {
 		if ( notices.length > 0 ) {
 			clearTimeout( timer );
-			timer = setTimeout( () => setShrunk( true ), SHRINK_TIME );
+
+			if ( shrunk ) {
+				setShrunk( false );
+			} else {
+				timer = setTimeout( () => setShrunk( true ), SHRINK_TIME );
+			}
 		}
 
 		return () => {
