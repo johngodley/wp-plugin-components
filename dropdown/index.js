@@ -45,7 +45,7 @@ import Popover, { getPopoverPosition } from '../popover';
  * @param {toggleRender} props.renderToggle - Called to display the toggle.
  */
 function Dropdown( props ) {
-	const { renderContent, className, renderToggle, align = 'left', hasArrow = false, matchMinimum = false } = props;
+	const { renderContent, className, renderToggle, align = 'left', hasArrow = false, matchMinimum = false, disabled = false } = props;
 	const [ isShowing, setShowing ] = useState( false );
 	const [ togglePosition, setTogglePosition ] = useState( null );
 	const toggleRef = useRef( null );
@@ -59,13 +59,15 @@ function Dropdown( props ) {
 
 		ev && ev.stopPropagation();
 
-		setTogglePosition( position );
-		setShowing( ! isShowing );
+		if ( ! disabled ) {
+			setTogglePosition( position );
+			setShowing( ! isShowing );
+		}
 	};
 
 	return (
 		<>
-			<div className={ classnames( 'wpl-popover__toggle', className ) } ref={ toggleRef }>
+			<div className={ classnames( 'wpl-popover__toggle', className, disabled && 'wpl-popover__toggle__disabled' ) } ref={ toggleRef }>
 				{ renderToggle( isShowing, toggleDropdown ) }
 			</div>
 
