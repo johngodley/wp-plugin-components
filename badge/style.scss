@@ -5,7 +5,7 @@
 	align-items: center;
 	line-height: 1.4;
 	font-size: 12px;
-	background-color: $light-gray-600;
+	background-color: $gray-400;
 	border-radius: 3px;
 	font-variant: small-caps;
 	white-space: nowrap;
@@ -18,7 +18,7 @@
 
 		&:hover {
 			color: $white;
-			background-color: $dark-gray-200;
+			background-color: $gray-600;
 		}
 	}
 
