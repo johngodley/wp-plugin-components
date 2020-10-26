@@ -75,10 +75,15 @@ function ErrorDebug( props ) {
 		<>
 			<h3>{ __( 'Debug Information' ) }</h3>
 
-			{ renderDebug && renderDebug( debug.join( '\n' ) ) }
+			{ renderDebug && renderDebug( details.concat( debug ).join( '\n' ) ) }
 
 			<p>
-				<TextareaAutosize readOnly cols={ 120 } value={ details.concat( debug ).join( '\n' ) } spellCheck={ false } />
+				<TextareaAutosize
+					readOnly
+					cols={ 120 }
+					value={ details.concat( debug ).join( '\n' ) }
+					spellCheck={ false }
+				/>
 			</p>
 		</>
 	);
