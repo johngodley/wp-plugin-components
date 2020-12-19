@@ -21,6 +21,8 @@ import {
 	isParseError,
 	isFailedFetch,
 	isRedirectedAPI,
+	isCachedApi,
+	isDeprecatedApi,
 } from './error-detect';
 import getErrorDetails from './error-details';
 import extractPhpError from './php-details';
@@ -161,6 +163,15 @@ const DecodeError = ( { error, links } ) => {
 		return <p>{ __( 'An unknown error occurred.' ) }</p>;
 	}
 
+	if ( isDeprecatedApi( error ) ) {
+		return (
+			<>
+				<p>{ getErrorDetails( error ) }</p>
+				<p>{ __( 'Your REST API is showing a deprecated PHP error. Please fix this error.' ) }</p>
+			</>
+		);
+	}
+
 	if ( isServerError( error ) ) {
 		return (
 			<>
@@ -216,6 +227,19 @@ const DecodeError = ( { error, links } ) => {
 					<ExternalLink url={ links.url }>
 						{ __( 'Read this REST API guide for more information.' ) }
 					</ExternalLink>
+				</p>
+			</>
+		);
+	}
+
+	if ( isCachedApi( error ) ) {
+		return (
+			<>
+				<p>{ getErrorDetails( error ) }</p>
+				<p>
+					{ __(
+						'Your REST API appears to be cached and this will cause problems. Please exclude your REST API from your caching system.'
+					) }
 				</p>
 			</>
 		);

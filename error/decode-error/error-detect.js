@@ -125,3 +125,34 @@ export function isFailedFetch( error ) {
 
 	return false;
 }
+
+/**
+ * Is the REST API cached?
+ *
+ * @param {Error|ApiError} error - Error
+ * @returns {boolean}
+ */
+export function isCachedApi( error ) {
+	const { headers } = error.request;
+
+	if ( headers ) {
+		// Look for Cloudflare
+		for ( let [ key, value ] of headers ) {
+			if ( key.toLowerCase().indexOf( 'cf-' ) !== -1 ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Does the server contain deprecated PHP errors?
+ *
+ * @param {Error|ApiError} error - Error
+ * @returns {boolean}
+ */
+export function isDeprecatedApi( error ) {
+	return error?.data?.indexOf( '<b>Deprecated</b>:  Directive' ) !== -1;
+}
