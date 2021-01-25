@@ -154,5 +154,5 @@ export function isCachedApi( error ) {
  * @returns {boolean}
  */
 export function isDeprecatedApi( error ) {
-	return error?.data?.indexOf( '<b>Deprecated</b>:  Directive' ) !== -1;
+	return error.data && error.data.indexOf( '<b>Deprecated</b>:  Directive' ) !== -1;
 }
