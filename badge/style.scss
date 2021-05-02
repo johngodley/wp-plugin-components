@@ -3,14 +3,14 @@
 .wpl-badge {
 	display: inline-flex;
 	align-items: center;
-	line-height: 1.4;
-	font-size: 12px;
 	background-color: $gray-400;
 	border-radius: 3px;
-	font-variant: small-caps;
-	white-space: nowrap;
+//	white-space: nowrap;
 	color: $black;
-	padding: 3px 4px;
+	padding: 0px 4px;
+	min-height: 24px;
+	margin-top: 4px;
+	margin-bottom: 4px;
 
 	&.wpl-badge__click {
 		cursor: pointer;
@@ -27,11 +27,8 @@
 		border: none;
 		width: 15px;
 		text-align: center;
-		font-size: 20px;
-		height: 100%;
-		line-height: 1;
 		vertical-align: middle;
-		margin-top: -6px;
+		cursor: pointer;
 		margin-left: 2px;
 
 		&:hover {
@@ -44,6 +41,14 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	&.wpl-badge__disabled {
+		opacity: 0.6;
+
+		.wpl-badge__close {
+			cursor: inherit;
+		}
 	}
 }
 

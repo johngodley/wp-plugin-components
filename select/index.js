@@ -18,11 +18,12 @@ import Option from './option';
  * @param {Object} ev Event handler object
  */
 
- /**
+/**
  * @typedef SelectOption
  * @type {object}
- * @property {string} label - a descriptive label.
+ * @property {string|i18nCalypso.TranslateResult} label - a descriptive label.
  * @property {string|SelectOption[]} value - value for the option, or an array of SelectOption
+ * @property {boolean} [disabled=false] - is the option disabled
  */
 
 /**
@@ -34,16 +35,18 @@ import Option from './option';
  * @param {String} props.value - Currently selected value
  * @param {changeCallback} props.onChange - onChange callback
  * @param {boolean} props.disabled - Determine if select should be disabled
+ * @param {string} [props.className] - Extra classes
  */
 const Select = props => {
-	const { items, value, name, onChange, disabled = false } = props;
+	const { items, value, name, onChange, disabled = false, className } = props;
 
 	return (
-		<select name={ name } value={ value } onChange={ onChange } disabled={ disabled } >
+		<select name={ name } value={ value } onChange={ onChange } disabled={ disabled } className={ className }>
 			{ items.map( ( item, pos ) => (
 				<Option
 					value={ item.value }
 					label={ item.label }
+					disabled={ item.disabled || false }
 					key={ pos }
 				/>
 			) ) }

@@ -32,7 +32,7 @@ import './style.scss';
  * @param {String} [props.className] - Class name for the wrapper
  * @param {clickCallback} [props.onClick] - Callback when badge is clicked
  * @param {cancelCallback} [props.onCancel] - Callback when close button is clicked
- * @param {string} [props.title] - HTML title
+ * @param {string|import('i18n-calypso').TranslateResult} [props.title] - HTML title
  * @param {boolean} [props.disabled=false] - Badge is disabled
  * @param {boolean} [props.small=false]
  */
@@ -56,11 +56,12 @@ const Badge = ( props ) => {
 			className={ classnames( 'wpl-badge', className, {
 				'wpl-badge__click': onClick,
 				'wpl-badge__small': small,
+				'wpl-badge__disabled': disabled,
 			} ) }
 			{ ...extra }
 		>
 			<div className="wpl-badge__content">{ children }</div>
-			{ onCancel && <div className="wpl-badge__close" onClick={ cancel }>⨯</div> }
+			{ onCancel && <div className="wpl-badge__close dashicons dashicons-no-alt" onClick={ cancel } /> }
 		</div>
 	);
 };

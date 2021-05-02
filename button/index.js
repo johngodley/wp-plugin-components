@@ -6,6 +6,11 @@ import React from 'react';
 import classnames from 'classnames';
 
 /**
+ * @callback Click
+ * @param {object} ev
+ */
+
+/**
  * Button component
  *
  * @param {object} props - Component props
@@ -14,7 +19,10 @@ import classnames from 'classnames';
  * @param {boolean} [props.isSubmit=false] - Submit button
  * @param {boolean} [props.isDestructive=false]
  * @param {string} [props.className] - Class name
+ * @param {string} [props.name] - Button `name`
  * @param {boolean} [props.disabled=false]
+ * @param {Click} [props.onClick] - Click callback
+ * @param {string|import('i18n-calypso').TranslateResult} props.children - Button contents
  */
 function Button( props ) {
 	const {

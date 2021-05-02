@@ -9,7 +9,7 @@ import React from 'react';
  *
  * @param {object} props - Component props
  * @param {string} props.url - URL
- * @param {string|React} props.children - Child components
+ * @param {string|React|object} props.children - Child components
  */
 const ExternalLink = ( { url, children } ) => {
 	return <a href={ url } target="_blank" rel="noopener noreferrer">{ children }</a>;
