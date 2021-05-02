@@ -23,7 +23,7 @@ import PopoverArrow from './arrow';
  * @param {object|null} [props.style=null] - Additional style params
  */
 function PopoverContainer( props ) {
-	const { position, children, popoverPosition, align, hasArrow } = props;
+	const { position, children, popoverPosition, align, valign, hasArrow } = props;
 	const [ style, setStyle ] = useState( {
 		arrow: {},
 		content: { visibility: 'none', ...position },
@@ -31,7 +31,7 @@ function PopoverContainer( props ) {
 	const popoverRef = useCallback(
 		( node ) => {
 			if ( node ) {
-				const content = getAdjustedPosition( position, popoverPosition, align, node, hasArrow );
+				const content = getAdjustedPosition( position, popoverPosition, align, valign, node, hasArrow );
 
 				setStyle( {
 					content,

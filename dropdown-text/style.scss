@@ -1,3 +1,5 @@
+@import '../../global.scss';
+
 .wpl-dropdowntext {
 	display: flex;
 	position: relative;
@@ -16,6 +18,33 @@
 			height: 28px;
 			opacity: 0.7;
 		}
+	}
+}
+
+.wpl-dropdowntext__max {
+	display: none;
+}
+
+.wpl-dropdowntext__suggestion {
+	input {
+		width: 100%;
+	}
+
+	.wpl-badge {
+		background-color: $green;
+		color: white;
+		margin-left: 5px;
+		margin-right: 5px;
+
+		.wpl-badge__content {
+			font-weight: bold;
+		}
+	}
+}
+
+.wpl-dropdowntext__suggestion__hide {
+	input {
+		display: none;
 	}
 }
 

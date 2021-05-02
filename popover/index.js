@@ -5,6 +5,7 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import classnames from 'classnames';
+import FocusLock from 'react-focus-lock';
 
 /**
  * Internal dependencies
@@ -45,14 +46,24 @@ import './style.scss';
  * @param {object} props - Component props.
  * @param {string} [props.className] - Additional class name.
  * @param {('left'|'right'|'centre')} [props.align='left'] - Align the popover on the `left` or `right`.
+ * @param {('top'|'bottom')} [props.valign='bottom'] - Vertical alignment
  * @param {boolean} [props.hasArrow=false] - Show a small arrow pointing at the toggle when the popover is shown.
  * @param {toggleCallback} [props.onClose] - Callback when the popover is closed.
- * @param {contentRender} props.children - Called when the popover should be shown
+ * @param {Element|JSX.Element} props.children - Called when the popover should be shown
  * @param {} props.popoverPosition - Position where the popover should be shown
  * @param {object|null} [props.style=null] - Additional style params
  */
 function Popover( props ) {
-	const { children, className, align = 'left', onClose, hasArrow = false, popoverPosition, style = null } = props;
+	const {
+		children,
+		className,
+		align = 'left',
+		valign = 'bottom',
+		onClose,
+		hasArrow = false,
+		popoverPosition,
+		style = null,
+	} = props;
 
 	/**
 	 * Hide the dropdown
@@ -77,15 +88,18 @@ function Popover( props ) {
 
 	return createPortal(
 		<ClickOutside className={ classnames( 'wpl-popover', className ) } onOutside={ onOutside }>
-			<PopoverContainer
-				position={ getPosition( popoverPosition ) }
-				popoverPosition={ popoverPosition }
-				align={ align }
-				hasArrow={ hasArrow }
-				style={ style }
-			>
-				{ children }
-			</PopoverContainer>
+			<FocusLock returnFocus>
+				<PopoverContainer
+					position={ getPosition( popoverPosition ) }
+					popoverPosition={ popoverPosition }
+					align={ align }
+					hasArrow={ hasArrow }
+					valign={ valign }
+					style={ style }
+				>
+					{ children }
+				</PopoverContainer>
+			</FocusLock>
 		</ClickOutside>,
 		getPortal( DROPDOWN_PORTAL )
 	);
@@ -96,7 +110,7 @@ function Popover( props ) {
  *
  * @param {HTMLElement|null} ref - The dom node.
  */
-export function getPopoverPosition( ref ) {
+export function getPopoverPosition( ref, verticalAlign = 'bottom' ) {
 	const parentNode = document.getElementById( WORDPRESS_WRAP );
 	if ( ref === null || parentNode === null ) {
 		return {};
@@ -106,7 +120,7 @@ export function getPopoverPosition( ref ) {
 	const { height, width, left, top } = ref.getBoundingClientRect();
 
 	return {
-		left: left - parentRect.left,
+		left: verticalAlign === 'bottom' ? left - parentRect.left : left + width / 2 - parentRect.left - 7,
 		top: top - parentRect.top + 1,
 		width,
 		height,

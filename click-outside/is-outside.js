@@ -19,5 +19,9 @@ export default function isOutside( ev, containerRef ) {
 		return false;
 	}
 
+	if ( ev && ev.target && ( ev.target.closest( '.wpl-dropdowntext__suggestions' ) || ev.target.closest( '.wpl-multioption' ) ) ) {
+		return false;
+	}
+
 	return true;
 }

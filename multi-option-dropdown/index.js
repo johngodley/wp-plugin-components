@@ -39,7 +39,7 @@ function shouldShowTitle( selected, hideTitle ) {
  * @param {string[]} props.selected - Array of selected option values
  * @param {MultiOptionGroupValue[]|MultiOptionValue[]} props.options - Array of options
  * @param {applyCallback} props.onApply - Callback when an option is enabled or disabled
- * @param {string} [props.title=''] - Title to display in the dropdown
+ * @param {string|i18nCalypso.TranslateResult} props.title - Title to display in the dropdown
  * @param {boolean} [props.badges=false] - `true` to show badges, `false` otherwise
  * @param {boolean} [props.disabled=false] - `true` if disabled, `false` otherwise
  * @param {boolean} [props.multiple=false] - `true` if multiple options can be selected, `false` otherwise
@@ -73,6 +73,8 @@ function MultiOptionDropdown( props ) {
 						isOpen ? 'wpl-multioption__button_enabled' : null
 					) }
 					onClick={ toggle }
+					tabIndex={ 0 }
+					aria-label={ props['aria-label'] || title || '' }
 				>
 					{ shouldShowTitle( selected, hideTitle ) && title.length > 0 && <h5>{ title }</h5> }
 					{ badges && badgeList }

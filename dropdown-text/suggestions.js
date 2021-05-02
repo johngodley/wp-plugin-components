@@ -19,7 +19,7 @@ function DropdownSuggestions( props ) {
 		<ul>
 			{ options.map( ( item, pos ) => (
 				<li key={ pos }>
-					<a href="#" onClick={ ( ev ) => onClick( ev, item.value ) }>
+					<a href="#" onClick={ ( ev ) => onClick( ev, item ) }>
 						<Highlighter
 							searchWords={ [ value ] }
 							textToHighlight={ item.title }

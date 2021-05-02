@@ -14,20 +14,25 @@ import React from 'react';
  * @param {string[]} props.selected - Array of selected option values
  * @param {selectCallback} props.onSelect - Callback when an option is checked
  */
-const MultiOptionItem = ( { option, onSelect, selected } ) => {
-	const { label, value } = option;
+const MultiOptionItem = ( { option, onSelect, selected, label } ) => {
+	const { value, disabled = false } = option;
 
 	return (
 		<p>
-			<label>
+			<label aria-label={ label || option.label }>
 				<input
 					type="checkbox"
 					name={ value }
 					onChange={ onSelect }
-					checked={ selected.indexOf( value ) !== -1 || selected.indexOf( parseInt( value, 10 ) ) !== -1 }
+					checked={
+						selected.indexOf( String( value ) ) !== -1 ||
+						selected.indexOf( parseInt( value, 10 ) ) !== -1
+					}
+					disabled={ disabled }
+					tabIndex={ 0 }
 				/>
 
-				{ label }
+				{ option.label }
 			</label>
 		</p>
 	);

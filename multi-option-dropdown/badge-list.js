@@ -108,7 +108,7 @@ export default function getBadgeList( props ) {
 						}
 						disabled={ disabled }
 					>
-						{ found.label }
+						{ found.alt || found.label }
 					</Badge>
 				);
 			}

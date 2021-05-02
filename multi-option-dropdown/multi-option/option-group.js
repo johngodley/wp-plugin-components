@@ -36,6 +36,7 @@ function MultiOptionGroup( props ) {
 						option={ groupOption }
 						onSelect={ onSelect }
 						selected={ selected }
+						label={ label + ' ' + groupOption.label }
 						key={ key }
 					/>
 				)

@@ -38,14 +38,26 @@ import Popover, { getPopoverPosition } from '../popover';
  * @param {object} props - Component props.
  * @param {string} [props.className] - Additional class name.
  * @param {('left'|'right'|'centre')} [props.align='left'] - Align the dropdown on the `left` or `right`.
+ * @param {('top'|'bottom')} [props.valign='bottom'] - Vertical alignment
  * @param {boolean} [props.hasArrow=false] - Show a small arrow pointing at the toggle when the dropdown is toggled.
  * @param {boolean} [props.disabled=false] - Is the dropdown disabled
  * @param {boolean} [props.matchMinimum=false] - Match minimum width of toggle
+ * @param {} [props.onClose] - Callback if dropdown is closed
  * @param {contentRender} props.renderContent - Called when the dropdown menu should be shown
  * @param {toggleRender} props.renderToggle - Called to display the toggle.
  */
 function Dropdown( props ) {
-	const { renderContent, className, renderToggle, align = 'left', hasArrow = false, matchMinimum = false, disabled = false } = props;
+	const {
+		renderContent,
+		className,
+		renderToggle,
+		align = 'left',
+		valign = 'bottom',
+		hasArrow = false,
+		matchMinimum = false,
+		disabled = false,
+		onClose,
+	} = props;
 	const [ isShowing, setShowing ] = useState( false );
 	const [ togglePosition, setTogglePosition ] = useState( null );
 	const toggleRef = useRef( null );
@@ -55,7 +67,7 @@ function Dropdown( props ) {
 	 * @param {Event} ev - Event
 	 */
 	const toggleDropdown = ( ev ) => {
-		const position = getPopoverPosition( toggleRef.current );
+		const position = getPopoverPosition( toggleRef.current, valign );
 
 		ev && ev.stopPropagation();
 
@@ -65,18 +77,41 @@ function Dropdown( props ) {
 		}
 	};
 
+	function maybeToggle( ev ) {
+		if ( ev.key && ev.code === 'Space' ) {
+			toggleDropdown();
+		}
+	}
+
+	function close() {
+		setShowing( false );
+
+		if ( onClose ) {
+			onClose();
+		}
+	}
+
 	return (
 		<>
-			<div className={ classnames( 'wpl-popover__toggle', className, disabled && 'wpl-popover__toggle__disabled' ) } ref={ toggleRef }>
+			<div
+				className={ classnames(
+					'wpl-popover__toggle',
+					className,
+					disabled && 'wpl-popover__toggle__disabled'
+				) }
+				ref={ toggleRef }
+				onKeyDown={ maybeToggle }
+			>
 				{ renderToggle( isShowing, toggleDropdown ) }
 			</div>
 
 			{ isShowing && (
 				<Popover
 					align={ align }
+					valign={ valign }
 					hasArrow={ hasArrow }
 					className={ className }
-					onClose={ () => setShowing( false ) }
+					onClose={ close }
 					popoverPosition={ togglePosition }
 					style={ matchMinimum ? { minWidth: togglePosition.width + 'px' } : null }
 				>

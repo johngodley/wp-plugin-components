@@ -25,7 +25,7 @@ import DropdownIcon from '../icons/dropdown';
  * @param {object} props - Component props
  * @param {boolean} props.disabled - Is this component disabled?
  * @param {ButtonOption[]} props.options - Dropdown options
- * @param {string} props.selected - Currently selected option `name`
+ * @param {string|import('i18n-calypso').TranslateResult} props.selected - Currently selected option `name`
  */
 function DropdownButton( props ) {
 	const { options, disabled = false, selected } = props;
@@ -48,7 +48,12 @@ function DropdownButton( props ) {
 		<Dropdown
 			renderToggle={ ( isOpen, toggle ) => (
 				<button
-					className={ classnames( 'button', 'action', disabled && 'wpl-dropdownbutton__disabled', isOpen ? 'wpl-dropdownbutton__button_enabled' : null ) }
+					className={ classnames(
+						'button',
+						'action',
+						disabled && 'wpl-dropdownbutton__disabled',
+						isOpen ? 'wpl-dropdownbutton__button_enabled' : null
+					) }
 					disabled={ disabled }
 					onClick={ onButton }
 					type="button"
@@ -59,16 +64,25 @@ function DropdownButton( props ) {
 				</button>
 			) }
 			align="right"
-			className={ classnames( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }
+			matchMinimum
+			className={ classnames(
+				'wpl-dropdownbutton',
+				options.length <= 1 ? 'wpl-dropdownbutton__single' : null
+			) }
 			renderContent={ ( toggle ) => (
 				<ul>
 					{ options.map( ( { title, name } ) => (
-						<li key={ name } className={ classnames( {
-							'wpl-dropdownbutton__selected': selectedItem.name === name,
-							[ 'wpl-dropdownbutton__' + name ]: true,
-						} ) }>
-							<a href="#" onClick={ ev => onChange( ev, name, toggle ) }>
-								<span className="wpl-dropdownbutton__check">{ selectedItem.name === name && '✓' }</span>
+						<li
+							key={ name }
+							className={ classnames( {
+								'wpl-dropdownbutton__selected': selectedItem.name === name,
+								[ 'wpl-dropdownbutton__' + name ]: true,
+							} ) }
+						>
+							<a href="#" onClick={ ( ev ) => onChange( ev, name, toggle ) }>
+								<span className="wpl-dropdownbutton__check">
+									{ selectedItem.name === name && '✓' }
+								</span>
 								{ title }
 							</a>
 						</li>

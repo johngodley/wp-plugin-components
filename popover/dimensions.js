@@ -49,7 +49,7 @@ function adjustForAlignment( toggleLeftPos, toggleWidth, popoverWidth, align ) {
  * @param {HTMLElement|null} popoverRef - Our node.
  * @param {boolean} hasArrow - Show an arrow?
  */
-export function getAdjustedPosition( position, togglePosition, align, popoverRef, hasArrow ) {
+export function getAdjustedPosition( position, togglePosition, align, valign, popoverRef, hasArrow ) {
 	if ( position === null || togglePosition === null ) {
 		return {};
 	}
