@@ -107,7 +107,7 @@ export function isParseError( error ) {
 		return true;
 	}
 
-	return message.indexOf( 'Unexpected token' ) !== -1 || message.indexOf( 'JSON parse error' ) !== -1;
+	return false
 }
 
 /**
@@ -133,7 +133,7 @@ export function isFailedFetch( error ) {
  * @returns {boolean}
  */
 export function isCachedApi( error ) {
-	const { headers } = error.request;
+	const { headers } = error?.request ?? {};
 
 	if ( headers ) {
 		// Look for Cloudflare

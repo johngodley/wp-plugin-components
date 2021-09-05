@@ -7,6 +7,10 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { translate as __ } from 'i18n-calypso';
 
 function getErrorDetails( error ) {
+	if ( typeof error === 'string' ) {
+		return error;
+	}
+
 	if ( error.code === 0 ) {
 		return error.message;
 	}
