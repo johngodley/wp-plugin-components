@@ -48,6 +48,7 @@ import './style.scss';
  * @param {('left'|'right'|'centre')} [props.align='left'] - Align the popover on the `left` or `right`.
  * @param {('top'|'bottom')} [props.valign='bottom'] - Vertical alignment
  * @param {boolean} [props.hasArrow=false] - Show a small arrow pointing at the toggle when the popover is shown.
+ * @param {boolean} [props.focusLock=true] - Lock focus into the popover
  * @param {toggleCallback} [props.onClose] - Callback when the popover is closed.
  * @param {Element|JSX.Element} props.children - Called when the popover should be shown
  * @param {} props.popoverPosition - Position where the popover should be shown
@@ -63,6 +64,7 @@ function Popover( props ) {
 		hasArrow = false,
 		popoverPosition,
 		style = null,
+		focusLock = true,
 	} = props;
 
 	/**
@@ -88,7 +90,7 @@ function Popover( props ) {
 
 	return createPortal(
 		<ClickOutside className={ classnames( 'wpl-popover', className ) } onOutside={ onOutside }>
-			<FocusLock returnFocus>
+			<FocusLock returnFocus disabled={ ! focusLock }>
 				<PopoverContainer
 					position={ getPosition( popoverPosition ) }
 					popoverPosition={ popoverPosition }

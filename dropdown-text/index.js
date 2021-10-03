@@ -301,6 +301,7 @@ function DropdownText( props ) {
 					onClose={ () => setOptions( [] ) }
 					popoverPosition={ getPopoverPosition( inputRef.current ) }
 					className="wpl-dropdowntext__suggestions"
+					focusLock={ false }
 				>
 					<DropdownSuggestions
 						options={ options }
