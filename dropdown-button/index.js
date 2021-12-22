@@ -42,6 +42,7 @@ function DropdownButton( props ) {
 		ev.stopPropagation();
 		toggle();
 		props.onChange( name );
+		props.onSelect();
 	};
 
 	return (

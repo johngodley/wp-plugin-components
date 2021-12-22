@@ -4,13 +4,7 @@
 
 import React from 'react';
 
-/**
-* @typedef SelectOption
-* @type {object}
-* @property {string} label - a descriptive label.
-* @property {string|SelectOption[]} value - value for the option, or an array of SelectOption
-* @property {boolean} [disabled=false] - is the option disabled
-*/
+/** @typedef {import('./index.js').SelectOption} SelectOption */
 
 /**
  * Select option value.

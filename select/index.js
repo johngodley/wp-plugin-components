@@ -15,7 +15,7 @@ import Option from './option';
  * onChange callback.
  *
  * @callback changeCallback
- * @param {Object} ev Event handler object
+ * @param {React.ChangeEvent<HTMLSelectElement>} ev Event handler object
  */
 
 /**
@@ -34,7 +34,7 @@ import Option from './option';
  * @param {String} props.name - Name of the select box
  * @param {String} props.value - Currently selected value
  * @param {changeCallback} props.onChange - onChange callback
- * @param {boolean} props.disabled - Determine if select should be disabled
+ * @param {boolean} [props.disabled] - Determine if select should be disabled
  * @param {string} [props.className] - Extra classes
  */
 const Select = props => {
