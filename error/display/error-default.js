@@ -11,15 +11,25 @@ import { translate as __ } from 'i18n-calypso';
 
 import ErrorDebug from '../debug';
 import DecodeError, { shouldHideDebug, shouldShowInformation } from '../decode-error';
+import { is404 } from '../decode-error/error-detect';
+
+function getTitle( error, title ) {
+	if ( is404( error ) ) {
+		return __( 'REST API 404');
+	}
+
+	return title || __( 'Something went wrong 🙁' )
+}
 
 function DisplayDefaultError( props ) {
 	const { title, children, error, links } = props;
-	const showInfo = shouldShowInformation( errors );
-	const hideDebug = shouldHideDebug( errors );
+	const showInfo = shouldShowInformation( error );
+	const hideDebug = shouldHideDebug( error );
+	const showSupport = ! is404( error );
 
 	return (
 		<>
-			<h2>{ title || __( 'Something went wrong 🙁' ) }</h2>
+			<h2>{ getTitle( error, title ) }</h2>
 
 			<div className="wpl-error__title">
 				<DecodeError error={ error } links={ links } />
@@ -27,7 +37,7 @@ function DisplayDefaultError( props ) {
 
 			{ showInfo && children }
 
-			<ErrorDebug { ...props } { ...( hideDebug ? { mini: true } : {} ) } />
+			<ErrorDebug { ...props } { ...( hideDebug ? { mini: true } : {} ) } renderDebug={ showSupport ? null : props.renderDebug } />
 		</>
 	);
 }

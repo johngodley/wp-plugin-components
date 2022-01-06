@@ -101,22 +101,23 @@ const DecodeError = ( { error, links } ) => {
 	if ( is404( error ) ) {
 		return (
 			<>
-				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'Your REST API is returning a 404 page. This is almost certainly an external plugin or server configuration issue.'
+						'Your WordPress REST API is returning a 404 page. This is almost certainly an external plugin or server configuration issue.'
 					) }
+				</p>
+				<p className="wpl-error__highlight">
+					<strong>
+						{ __( 'You will will need to fix this on your site. Redirection is not causing the error.' ) }
+					</strong>
 				</p>
 				<ul>
 					<li>
-						{ __(
-							'Can you access your {{api}}REST API{{/api}} without it redirecting? If not then you will need to fix any issues.',
-							{
-								components: {
-									api: <ExternalLink url={ links.rootUrl } />,
-								},
-							}
-						) }
+						{ __( 'Can you access your {{api}}REST API{{/api}} without it redirecting?.', {
+							components: {
+								api: <ExternalLink url={ links.rootUrl } />,
+							},
+						} ) }
 					</li>
 					<li>
 						{ __( 'Check your {{link}}Site Health{{/link}} and fix any issues.', {
@@ -125,11 +126,7 @@ const DecodeError = ( { error, links } ) => {
 							},
 						} ) }
 					</li>
-					<li>
-						{ __(
-							'Your server configuration is blocking access to the REST API. You will need to fix this.'
-						) }
-					</li>
+					<li>{ __( 'Your server configuration is blocking access to the REST API.' ) }</li>
 					<li>
 						{ __(
 							'A security plugin or firewall is blocking access. You will need to whitelist the REST API.'

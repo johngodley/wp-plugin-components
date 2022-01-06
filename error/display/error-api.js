@@ -11,7 +11,7 @@ import { translate as __ } from 'i18n-calypso';
 
 import ErrorDebug from '../debug';
 
-function DisplayDefaultError( props ) {
+function DisplayApiError( props ) {
 	return (
 		<>
 			<h2>{ __( 'Bad data' ) }</h2>
@@ -24,4 +24,4 @@ function DisplayDefaultError( props ) {
 	);
 }
 
-export default DisplayDefaultError;
+export default DisplayApiError;

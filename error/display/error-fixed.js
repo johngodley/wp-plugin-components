@@ -11,7 +11,7 @@ import { translate as __ } from 'i18n-calypso';
 
 import ErrorDebug from '../debug';
 
-function DisplayDefaultError( props ) {
+function DisplayFixedError( props ) {
 	const { title, children } = props;
 
 	return (
@@ -25,4 +25,4 @@ function DisplayDefaultError( props ) {
 	);
 }
 
-export default DisplayDefaultError;
+export default DisplayFixedError;
