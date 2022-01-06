@@ -86,6 +86,7 @@ function ErrorDebug( props ) {
 					readOnly
 					cols={ 120 }
 					value={ details.concat( debug ).join( '\n' ) }
+					maxRows={ 40 }
 					spellCheck={ false }
 				/>
 			</p>
