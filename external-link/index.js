@@ -9,10 +9,12 @@ import React from 'react';
  *
  * @param {object} props - Component props
  * @param {string} props.url - URL
+ * @param {string|undefined} props.className - Classname
+ * @param {string|undefined} props.title - Title
  * @param {string|React|object} props.children - Child components
  */
-const ExternalLink = ( { url, children } ) => {
-	return <a href={ url } target="_blank" rel="noopener noreferrer">{ children }</a>;
+const ExternalLink = ( { url, children, title = undefined, className = undefined } ) => {
+	return <a href={ url } target="_blank" rel="noopener noreferrer" title={ title } className={ className }>{ children }</a>;
 };
 
 export default ExternalLink;
