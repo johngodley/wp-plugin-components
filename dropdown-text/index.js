@@ -2,10 +2,10 @@
  * External dependencies
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { translate as __ } from 'i18n-calypso';
 import classnames from 'classnames';
-import debounce from 'debounce-promise';
+import { useDebouncedCallback } from 'use-debounce';
 
 /**
  * Internal dependencies
@@ -102,7 +102,7 @@ function DropdownText( props ) {
 		'wpl-dropdowntext__suggestion__hide': hideInput,
 		'wpl-dropdowntext__suggestion': maxChoices > 1,
 	};
-	const getDebounce = useCallback( () => debounce( getData, DEBOUNCE_DELAY ), [] );
+	const debounced = useDebouncedCallback( getData, DEBOUNCE_DELAY );
 
 	useEffect(() => {
 		if ( value !== input ) {
@@ -134,16 +134,14 @@ function DropdownText( props ) {
 	}
 
 	function changeValue( ev ) {
-		const debouncedDelay = getDebounce();
-
 		setInput( ev.target.value );
 		if ( maxChoices < 1 ) {
 			onChange( ev.target.value );
 		}
 
-		if ( fetchData && debouncedDelay ) {
+		if ( fetchData && debounced ) {
 			if ( canMakeRequest( ev.target.value.trim() ) ) {
-				debouncedDelay( ev.target.value );
+				debounced( ev.target.value );
 			} else {
 				setOptions( [] );
 			}
