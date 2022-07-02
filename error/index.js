@@ -67,7 +67,7 @@ function getErrorType( errors, type ) {
  * @param {Error[]|Error|ApiError[]} props.errors - Array of errors or single error
  * @param {string[]} [props.details] - Array of site details
  * @param {ClearCallback} [props.onClear] - Callback to clear the error
- * @param {string|React|Element} props.children - Child components
+ * @param {string|React|Element|import('react').ReactChild} props.children - Child components
  * @param {string|React} [props.title] - Title
  * @param {('error'|'fixed')} [props.type] - Type of error
  */
