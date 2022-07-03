@@ -2,8 +2,7 @@
  * External dependencies
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 /**
  * Internal dependencies
@@ -31,6 +30,6 @@ import './style.scss';
  * @param {Object} props.children - Contents of the modal
  * @param {string} [props.className] - Optional class name
  */
-const Modal = ( props ) => ReactDOM.createPortal( <ModalWrapper { ...props } />, getPortal( MODAL_PORTAL ) );
+const Modal = ( props ) => createPortal( <ModalWrapper { ...props } />, getPortal( MODAL_PORTAL ) );
 
 export default Modal;
