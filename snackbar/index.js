@@ -2,9 +2,9 @@
  * External dependencies
  */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classnames from 'classnames';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -30,10 +30,11 @@ function SnackbarNotice( { notices } ) {
  *
  * @param {object} props - Component props
  * @param {string[]} props.notices - Notices
+ * @param {string} props.snackBarViewText - Text
  * @param {} props.onClear - Clear notices
  */
 function Snackbar( props ) {
-	const { notices, onClear } = props;
+	const { notices, onClear, snackBarViewText } = props;
 	const [ shrunk, setShrunk ] = useState( false );
 
 	useEffect(() => {
@@ -72,7 +73,7 @@ function Snackbar( props ) {
 			</div>
 			<p>
 				{ shrunk ? (
-					<span className="dashicons dashicons-warning" title={ __( 'View notice' ) } />
+					<span className="dashicons dashicons-warning" title={ snackBarViewText } />
 				) : (
 					<SnackbarNotice notices={ notices } />
 				) }

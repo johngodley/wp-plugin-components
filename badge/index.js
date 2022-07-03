@@ -2,7 +2,6 @@
  * External dependencies
  */
 
-import React from 'react';
 import classnames from 'classnames';
 
 /**
@@ -32,7 +31,7 @@ import './style.scss';
  * @param {String} [props.className] - Class name for the wrapper
  * @param {clickCallback} [props.onClick] - Callback when badge is clicked
  * @param {cancelCallback} [props.onCancel] - Callback when close button is clicked
- * @param {string|import('i18n-calypso').TranslateResult} [props.title] - HTML title
+ * @param {string} [props.title] - HTML title
  * @param {boolean} [props.disabled=false] - Badge is disabled
  * @param {boolean} [props.small=false]
  */

@@ -2,7 +2,6 @@
  * External dependencies
  */
 
-import React from 'react';
 import classnames from 'classnames';
 
 /**
@@ -22,7 +21,7 @@ import classnames from 'classnames';
  * @param {string} [props.name] - Button `name`
  * @param {boolean} [props.disabled=false]
  * @param {Click} [props.onClick] - Click callback
- * @param {string|import('i18n-calypso').TranslateResult} props.children - Button contents
+ * @param {string} props.children - Button contents
  */
 function Button( props ) {
 	const {

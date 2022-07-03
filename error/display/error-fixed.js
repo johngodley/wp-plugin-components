@@ -2,8 +2,7 @@
  * External dependencies
  */
 
-import React from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -12,11 +11,11 @@ import { translate as __ } from 'i18n-calypso';
 import ErrorDebug from '../debug';
 
 function DisplayFixedError( props ) {
-	const { title, children } = props;
+	const { title, children, locale } = props;
 
 	return (
 		<>
-			<h2>{ title || __( 'Something went wrong 🙁' ) }</h2>
+			<h2>{ title || __( 'Something went wrong 🙁', locale ) }</h2>
 
 			{ children }
 

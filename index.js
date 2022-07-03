@@ -21,3 +21,4 @@ export { default as TableRow } from './table-row';
 export { default as Form } from './form';
 export { default as Button } from './button';
 export { default as LoadingDots } from './loading-dots';
+export { default as createInterpolateElement } from './interpolate';

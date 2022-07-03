@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 import { useDebouncedCallback } from 'use-debounce';
 

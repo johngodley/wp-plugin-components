@@ -2,9 +2,9 @@
  * External dependencies
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 function getErrorDetails( error ) {
 	if ( typeof error === 'string' ) {
@@ -60,14 +60,14 @@ function getDebug( error, versions, context ) {
 }
 
 function ErrorDebug( props ) {
-	const { error, mini, context, renderDebug, versions, noParse = false, details = [] } = props;
+	const { error, mini, context, renderDebug, versions, noParse = false, details = [], locale } = props;
 	const [ showDebug, setShowDebug ] = useState( ! mini );
 
 	if ( ! showDebug ) {
 		return (
 			<p>
 				<button className="button button-secondary" type="button" onClick={ () => setShowDebug( true ) }>
-					{ __( 'Show debug' ) }
+					{ __( 'Show debug', locale ) }
 				</button>
 			</p>
 		);
@@ -77,7 +77,7 @@ function ErrorDebug( props ) {
 
 	return (
 		<>
-			<h3>{ __( 'Debug Information' ) }</h3>
+			<h3>{ __( 'Debug Information', locale ) }</h3>
 
 			{ renderDebug && renderDebug( details.concat( debug ).join( '\n' ) ) }
 

@@ -2,8 +2,8 @@
  * External dependencies
  */
 
-import React, { useState } from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { useState } from 'react';
+import { __ } from '@wordpress/i18n';
 import Dropzone from 'react-dropzone';
 
 /**

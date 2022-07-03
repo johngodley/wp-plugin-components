@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 
 /**
@@ -64,6 +64,7 @@ function getErrorType( errors, type ) {
  *
  * @param {object} props - Component props
  * @param {boolean} [props.mini] - Show a small version for inline usage
+ * @param {string} props.locale - Locale for text
  * @param {Error[]|Error|ApiError[]} props.errors - Array of errors or single error
  * @param {string[]} [props.details] - Array of site details
  * @param {ClearCallback} [props.onClear] - Callback to clear the error
@@ -72,7 +73,7 @@ function getErrorType( errors, type ) {
  * @param {('error'|'fixed')} [props.type] - Type of error
  */
 function Error( props ) {
-	const { onClear, mini = false, type = '' } = props;
+	const { onClear, locale, mini = false, type = '' } = props;
 	const errors = Array.isArray( props.errors ) ? props.errors : [ props.errors ];
 	const [ currentError, setCurrentError ] = useState( 0 );
 

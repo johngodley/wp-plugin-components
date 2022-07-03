@@ -2,8 +2,7 @@
  * External dependencies
  */
 
-import React from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -11,13 +10,13 @@ import { translate as __ } from 'i18n-calypso';
 
 import ErrorDebug from '../debug';
 
-function DisplayApiError( props ) {
+function DisplayApiError( { locale } ) {
 	return (
 		<>
-			<h2>{ __( 'Bad data' ) }</h2>
+			<h2>{ __( 'Bad data', locale ) }</h2>
 
-			<p>{ __( 'There was a problem making a request to your site. This could indicate you provided data that did not match requirements, or that the plugin sent a bad request.' ) }</p>
-			<p>{ __( 'Please review your data and try again.' ) }</p>
+			<p>{ __( 'There was a problem making a request to your site. This could indicate you provided data that did not match requirements, or that the plugin sent a bad request.', locale ) }</p>
+			<p>{ __( 'Please review your data and try again.', locale ) }</p>
 
 			<ErrorDebug { ...props } mini />
 		</>

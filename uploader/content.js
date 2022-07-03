@@ -2,8 +2,6 @@
  * External dependencies
  */
 
-import React, { useState } from 'react';
-import { translate as __ } from 'i18n-calypso';
 import classnames from 'classnames';
 
 function UploaderContent( props ) {
@@ -20,6 +18,9 @@ function UploaderContent( props ) {
 		renderUploaded,
 		renderUploading,
 		disabled,
+		addFileText,
+		uploadText,
+		cancelText,
 	} = props;
 	const { getRootProps, getInputProps, open } = dropzone;
 	const className = classnames( 'wpl-dropzone', { 'wpl-dropzone__hover': hover } );
@@ -42,7 +43,7 @@ function UploaderContent( props ) {
 					{ renderUnselected( open ) }
 
 					<button type="button" className="button-secondary" onClick={ open } disabled={ disabled }>
-						{ __( 'Add File' ) }
+						{ addFileText }
 					</button>
 				</>
 			) }
@@ -51,10 +52,10 @@ function UploaderContent( props ) {
 				<>
 					{ renderSelected( file ) }
 					<button className="button-primary" onClick={ () => onUpload( file ) }>
-						{ __( 'Upload' ) }
+						{ uploadText }
 					</button>{' '}
 					<button className="button-secondary" onClick={ clearFile }>
-						{ __( 'Cancel' ) }
+						{ cancelText }
 					</button>
 				</>
 			) }

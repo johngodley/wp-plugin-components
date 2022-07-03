@@ -1,14 +1,8 @@
 /**
- * External dependencies
- */
-
-import React from 'react';
-
-/**
  * Extract as much information from an error
  *
  * @param {Error|ApiError} error - Error
- * @returns {object}
+ * @returns {React.ReactNode}
  */
 export default function getErrorDetails( error ) {
 	if ( error.code === 0 ) {

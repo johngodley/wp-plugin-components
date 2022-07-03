@@ -2,8 +2,7 @@
  * External dependencies
  */
 
-import React from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -26,6 +25,7 @@ import {
 } from './error-detect';
 import getErrorDetails from './error-details';
 import extractPhpError from './php-details';
+import { createInterpolateElement } from 'wp-plugin-components';
 
 export function shouldShowInformation( error ) {
 	if ( is404( error ) ) {
@@ -65,7 +65,7 @@ export function shouldHideDebug( error ) {
  * @param {object} props - Component props
  * @param {Error|ApiError} props.error - Error
  */
-const DecodeError = ( { error, links } ) => {
+const DecodeError = ( { error, links, locale } ) => {
 	if ( typeof error === 'string' ) {
 		return <p>{ error }</p>;
 	}
@@ -74,7 +74,7 @@ const DecodeError = ( { error, links } ) => {
 		return (
 			<p>
 				{ __(
-					'WordPress did not return a response. This could mean an error occurred or that the request was blocked. Please check your server error_log.'
+					'WordPress did not return a response. This could mean an error occurred or that the request was blocked. Please check your server error_log.', locale
 				) }
 			</p>
 		);
@@ -86,12 +86,12 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'Your REST API is probably being blocked by a security plugin. Please disable this, or configure it to allow REST API requests.'
+						'Your REST API is probably being blocked by a security plugin. Please disable this, or configure it to allow REST API requests.', locale
 					) }
 				</p>
 				<p>
 					<ExternalLink url={ links.api }>
-						{ __( 'Read this REST API guide for more information.' ) }
+						{ __( 'Read this REST API guide for more information.', locale ) }
 					</ExternalLink>
 				</p>
 			</>
@@ -103,39 +103,41 @@ const DecodeError = ( { error, links } ) => {
 			<>
 				<p>
 					{ __(
-						'Your WordPress REST API is returning a 404 page. This is almost certainly an external plugin or server configuration issue.'
+						'Your WordPress REST API is returning a 404 page. This is almost certainly an external plugin or server configuration issue.', locale
 					) }
 				</p>
 				<p className="wpl-error__highlight">
 					<strong>
-						{ __( 'You will will need to fix this on your site. Redirection is not causing the error.' ) }
+						{ __( 'You will will need to fix this on your site. Redirection is not causing the error.', locale ) }
 					</strong>
 				</p>
 				<ul>
 					<li>
-						{ __( 'Can you access your {{api}}REST API{{/api}} without it redirecting?.', {
-							components: {
+						{ createInterpolateElement(
+							__( 'Can you access your {{api}}REST API{{/api}} without it redirecting?.', locale ),
+							{
 								api: <ExternalLink url={ links.rootUrl } />,
-							},
-						} ) }
+							}
+						) }
 					</li>
 					<li>
-						{ __( 'Check your {{link}}Site Health{{/link}} and fix any issues.', {
-							components: {
+						{ createInterpolateElement(
+							__( 'Check your {{link}}Site Health{{/link}} and fix any issues.', locale ),
+							{
 								link: <ExternalLink url={ links.siteHealth } />,
 							},
-						} ) }
+						) }
 					</li>
-					<li>{ __( 'Your server configuration is blocking access to the REST API.' ) }</li>
+					<li>{ __( 'Your server configuration is blocking access to the REST API.', locale ) }</li>
 					<li>
 						{ __(
-							'A security plugin or firewall is blocking access. You will need to whitelist the REST API.'
+							'A security plugin or firewall is blocking access. You will need to whitelist the REST API.', locale
 						) }
 					</li>
 				</ul>
 				<p>
 					<ExternalLink url={ links.api }>
-						{ __( 'Read this REST API guide for more information.' ) }
+						{ __( 'Read this REST API guide for more information.', locale ) }
 					</ExternalLink>
 				</p>
 			</>
@@ -143,28 +145,28 @@ const DecodeError = ( { error, links } ) => {
 	}
 
 	if ( isRedirectedAPI( error ) ) {
-		return <p>{ __( 'Your REST API is being redirected. Please remove the redirection for the API.' ) }</p>;
+		return <p>{ __( 'Your REST API is being redirected. Please remove the redirection for the API.', locale ) }</p>;
 	}
 
 	if ( isTooBig( error ) ) {
 		return (
 			<p>
 				{ __(
-					'Your server has rejected the request for being too big. You will need to reconfigure it to continue.'
+					'Your server has rejected the request for being too big. You will need to reconfigure it to continue.', locale
 				) }
 			</p>
 		);
 	}
 
 	if ( isUnknownError( error ) ) {
-		return <p>{ __( 'An unknown error occurred.' ) }</p>;
+		return <p>{ __( 'An unknown error occurred.', locale ) }</p>;
 	}
 
 	if ( isDeprecatedApi( error ) ) {
 		return (
 			<>
 				<p>{ getErrorDetails( error ) }</p>
-				<p>{ __( 'Your REST API is showing a deprecated PHP error. Please fix this error.' ) }</p>
+				<p>{ __( 'Your REST API is showing a deprecated PHP error. Please fix this error.', locale ) }</p>
 			</>
 		);
 	}
@@ -175,12 +177,12 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'This could be a security plugin, or your server is out of memory or has an external error. Please check your server error log'
+						'This could be a security plugin, or your server is out of memory or has an external error. Please check your server error log', locale
 					) }
 				</p>
 				<p>
 					<ExternalLink url={ links.http }>
-						{ __( 'Read this REST API guide for more information.' ) }
+						{ __( 'Read this REST API guide for more information.', locale ) }
 					</ExternalLink>
 				</p>
 			</>
@@ -188,7 +190,7 @@ const DecodeError = ( { error, links } ) => {
 	}
 
 	if ( isRESTDisabled( error ) ) {
-		return <p>{ __( 'Your WordPress REST API has been disabled. You will need to enable it to continue.' ) }</p>;
+		return <p>{ __( 'Your WordPress REST API has been disabled. You will need to enable it to continue.', locale ) }</p>;
 	}
 
 	if ( isParseError( error ) ) {
@@ -199,12 +201,12 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'WordPress returned an unexpected message. This could be a PHP error from another plugin, or data inserted by your theme.'
+						'WordPress returned an unexpected message. This could be a PHP error from another plugin, or data inserted by your theme.', locale
 					) }
 				</p>
 				{ php.length > 1 && (
 					<p>
-						<strong>{ __( 'Possible cause' ) }:</strong> <code>{ php.substr( 0, 1000 ) }</code>
+						<strong>{ __( 'Possible cause', locale ) }:</strong> <code>{ php.substr( 0, 1000 ) }</code>
 					</p>
 				) }
 			</>
@@ -217,12 +219,12 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'Unable to make request due to browser security. This is typically because your WordPress and Site URL settings are inconsistent, or the request was blocked by your site CORS policy.'
+						'Unable to make request due to browser security. This is typically because your WordPress and Site URL settings are inconsistent, or the request was blocked by your site CORS policy.', locale
 					) }
 				</p>
 				<p>
 					<ExternalLink url={ links.url }>
-						{ __( 'Read this REST API guide for more information.' ) }
+						{ __( 'Read this REST API guide for more information.', locale ) }
 					</ExternalLink>
 				</p>
 			</>
@@ -235,7 +237,7 @@ const DecodeError = ( { error, links } ) => {
 				<p>{ getErrorDetails( error ) }</p>
 				<p>
 					{ __(
-						'Your REST API appears to be cached and this will cause problems. Please exclude your REST API from your caching system.'
+						'Your REST API appears to be cached and this will cause problems. Please exclude your REST API from your caching system.', locale
 					) }
 				</p>
 			</>

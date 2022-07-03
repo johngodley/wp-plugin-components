@@ -2,8 +2,7 @@
  * External dependencies
  */
 
-import React from 'react';
-import { translate as __ } from 'i18n-calypso';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -19,14 +18,14 @@ import DecodeError from '../decode-error';
  * @param {boolean} props.mini
  */
 function DisplayKnownError( props ) {
-	const { title, children, error, links } = props;
+	const { title, children, error, links, locale } = props;
 
 	return (
 		<>
-			<h2>{ title || __( 'Something went wrong 🙁' ) }</h2>
+			<h2>{ title || __( 'Something went wrong 🙁', locale ) }</h2>
 
 			<div className="wpl-error__detail">
-				<DecodeError error={ error } links={ links } />
+				<DecodeError error={ error } links={ links } locale={ locale } />
 			</div>
 
 			{ children }

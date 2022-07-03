@@ -2,7 +2,6 @@
  * External dependencies
  */
 
-import React from 'react';
 import classnames from 'classnames';
 
 /**
@@ -25,7 +24,7 @@ import DropdownIcon from '../icons/dropdown';
  * @param {object} props - Component props
  * @param {boolean} props.disabled - Is this component disabled?
  * @param {ButtonOption[]} props.options - Dropdown options
- * @param {string|import('i18n-calypso').TranslateResult} props.selected - Currently selected option `name`
+ * @param {string} props.selected - Currently selected option `name`
  */
 function DropdownButton( props ) {
 	const { options, disabled = false, selected } = props;
