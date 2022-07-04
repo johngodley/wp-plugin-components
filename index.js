@@ -14,6 +14,7 @@ export { default as Select } from './select';
 export { default as Spinner } from './spinner';
 export { default as Uploader } from './uploader';
 export { default as Error } from './error';
+export { default as DecodeError } from './error/decode-error';
 export { default as ErrorBoundary } from './error-boundary';
 export { default as Notice } from './notice';
 export { default as Table } from './table';
