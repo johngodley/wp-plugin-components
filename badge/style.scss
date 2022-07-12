@@ -1,13 +1,13 @@
-@import '@wordpress/base-styles/colors';
+@import "@wordpress/base-styles/colors";
 
 .wpl-badge {
 	display: inline-flex;
 	align-items: center;
 	background-color: $gray-400;
 	border-radius: 3px;
-//	white-space: nowrap;
+	//	white-space: nowrap;
 	color: $black;
-	padding: 0px 4px;
+	padding: 0 4px;
 	min-height: 24px;
 	margin-top: 4px;
 	margin-bottom: 4px;
@@ -52,6 +52,6 @@
 	}
 }
 
-.wpl-badge:not( :last-child ) {
+.wpl-badge:not(:last-child) {
 	margin-right: 5px;
 }

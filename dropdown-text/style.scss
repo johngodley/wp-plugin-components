@@ -1,4 +1,4 @@
-@import '../../global.scss';
+@import "../../global.scss";
 
 .wpl-dropdowntext {
 	display: flex;
@@ -32,7 +32,7 @@
 
 	.wpl-badge {
 		background-color: $green;
-		color: white;
+		color: $white;
 		margin-left: 5px;
 		margin-right: 5px;
 
