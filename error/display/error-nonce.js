@@ -10,7 +10,9 @@ import { __ } from '@wordpress/i18n';
 
 import ErrorDebug from '../debug';
 
-function DisplayNonceError( { locale } ) {
+function DisplayNonceError( props ) {
+	const { locale } = props;
+
 	return (
 		<>
 			<h2>{ __( 'You are using an old or cached session', locale ) }</h2>

@@ -10,7 +10,9 @@ import { __ } from '@wordpress/i18n';
 
 import ErrorDebug from '../debug';
 
-function DisplayApiError( { locale } ) {
+function DisplayApiError( props ) {
+	const { locale } = props;
+
 	return (
 		<>
 			<h2>{ __( 'Bad data', locale ) }</h2>
