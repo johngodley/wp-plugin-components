@@ -25,7 +25,7 @@ import {
 } from './error-detect';
 import getErrorDetails from './error-details';
 import extractPhpError from './php-details';
-import { createInterpolateElement } from 'wp-plugin-components';
+import createInterpolateElement from '../../interpolate';
 
 export function shouldShowInformation( error ) {
 	if ( is404( error ) ) {
