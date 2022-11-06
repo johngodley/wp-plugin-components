@@ -7,5 +7,9 @@ import { createInterpolateElement as coreInterpolate } from '@wordpress/element'
  * @returns React.ReactElement|React.ReactNode|WPElement
  */
 export default function createInterpolateElement( text: string, components: object ): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
-	return coreInterpolate( text.replace( /\{\{/g, '<' ).replace( /\}\}/g, '>' ), components );
+	try {
+		return coreInterpolate( text.replace( /\{\{/g, '<' ).replace( /\}\}/g, '>' ), components );
+	} catch ( e ) {
+		return text;
+	}
 }
