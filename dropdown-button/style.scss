@@ -1,4 +1,5 @@
 @import "../../global.scss";
+@import "@wordpress/base-styles/colors";
 
 .wpl-dropdownbutton .wpl-popover__content {
 	h4 {
@@ -15,30 +16,80 @@
 	}
 }
 
+.wpl-popover {
+	box-shadow: 0 3px 30px rgba($gray-900, 0.1);
+	border: 1px solid $gray-400;
+	max-height: 400px;
+	overflow: scroll;
+	z-index: 10000;
+
+	li .button {
+		color: #333;
+	}
+}
+
 .wpl-dropdownbutton {
+	.button {
+		border-color: #7e8993;
+		display: flex;
+		align-items: center;
+		min-height: 30px;
+		flex-wrap: nowrap;
+	}
+
 	ul,
 	li {
 		white-space: nowrap;
 		margin: 0;
 		padding: 0;
+		max-width: 300px;
+		background-color: white;
 	}
 
-	a {
-		text-decoration: none;
-		display: block;
-		padding: 5px 10px 5px 7px;
-		line-height: 1.8;
-		width: auto;
-		color: #444;
-	}
+	li {
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 1px solid #ddd;
+		font-weight: 500;
 
-	a:hover {
-		background-color: #2684ff;
-		color: $white;
-	}
+		.button {
+			border: none;
+			display: block;
+			width: 100%;
+			border-radius: 0;
+			padding: 10px 15px;
+			text-align: left;
+			white-space: normal;
+			background-color: white;
 
-	a:focus {
-		box-shadow: none;
+			span {
+				font-weight: normal;
+				line-height: 1.6;
+				display: block;
+				margin-bottom: 5px;
+				color: #666;
+			}
+
+			&:hover {
+				background-color: #2684ff;
+				color: $white;
+
+				span {
+					color: $white;
+				}
+			}
+		}
+
+		&:last-of-type {
+			border-bottom: none;
+		}
+
+		button.wpl-dropdownbutton {
+			color: #444;
+			border: none;
+			background-color: inherit;
+			padding: 0;
+		}
 	}
 
 	svg {
@@ -53,19 +104,10 @@
 	h5 {
 		padding: 0;
 		margin: 0;
-		margin-right: 10px;
+		margin-right: 5px;
 		font-size: 13px;
 		font-weight: normal;
 	}
-}
-
-.wpl-dropdownbutton .button {
-	background-color: #fff;
-	border-color: #7e8993;
-	color: #32373c;
-	display: flex;
-	align-items: center;
-	min-height: 30px;
 }
 
 .wpl-dropdownbutton__single h5 {
@@ -73,14 +115,7 @@
 	margin-right: 0;
 }
 
-.wpl-dropdownbutton__check {
-	width: 16px;
-	display: inline-block;
-}
-
-.wpl-dropdownbutton .wpl-dropdownbutton__button_enabled {
-	background-color: #fff;
-
+.wpl-dropdownbutton[data-headlessui-state="open"] {
 	svg {
 		transform: rotate(180deg);
 		border-right: 1px solid #ddd;

@@ -1,39 +1,43 @@
 @import "../style.scss";
 
-.wpl-multioption .wpl-popover__content {
-	padding: 10px 10px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	z-index: $popover_zindex;
-
-	h4 {
-		margin-top: 5px;
-	}
-
-	h5 {
-		margin-top: 3px;
-		margin-bottom: 6px;
-		text-transform: uppercase;
-		color: #999;
-	}
-
-	p {
-		margin: 2px 0 0.8em !important;
-	}
-
-	p:first-child {
-		margin-top: 0;
-	}
-
-	p:last-child {
-		margin-bottom: 0 !important;
-	}
-
-	label {
-		display: inline-block;
-		width: 100%;
-	}
+.wpl-popover__content {
+	padding: 5px;
 }
+
+// .wpl-multioption .wpl-popover__content {
+// 	padding: 10px 10px;
+// 	white-space: nowrap;
+// 	box-sizing: border-box;
+// 	z-index: $popover_zindex;
+
+// 	h4 {
+// 		margin-top: 5px;
+// 	}
+
+// 	h5 {
+// 		margin-top: 3px;
+// 		margin-bottom: 6px;
+// 		text-transform: uppercase;
+// 		color: #999;
+// 	}
+
+// 	p {
+// 		margin: 2px 0 0.8em !important;
+// 	}
+
+// 	p:first-child {
+// 		margin-top: 0;
+// 	}
+
+// 	p:last-child {
+// 		margin-bottom: 0 !important;
+// 	}
+
+// 	label {
+// 		display: inline-block;
+// 		width: 100%;
+// 	}
+// }
 
 .button.wpl-multioption__button,
 .wpl-multioption__button {
@@ -75,6 +79,8 @@
 }
 
 .wpl-multioption__group {
+	margin-bottom: 20px;
+
 	&:first-child {
 		padding-top: 7px;
 	}
@@ -86,6 +92,15 @@
 	input[type="checkbox"] {
 		margin-right: 7px;
 	}
+
+	p {
+		margin: 0;
+		line-height: 2.2;
+	}
+}
+
+.wpl-multioption__group + p {
+	margin-top: -10px;
 }
 
 .actions .button.wpl-multioption__button {
@@ -102,10 +117,6 @@
 		padding-right: 4px;
 		padding-left: 0;
 	}
-}
-
-.wpl-multioption__group {
-	margin-bottom: 20px;
 }
 
 .wpl-multioption__group:last-child {

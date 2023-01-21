@@ -1,10 +1,4 @@
 /**
- * External dependencies
- */
-
-import React from 'react';
-
-/**
  * Three vertical dots
  *
  * @param {object} props Component props

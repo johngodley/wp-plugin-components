@@ -1,10 +1,4 @@
-/**
- * External dependencies
- */
-
-import React from 'react';
-
-function DropdownIcon( { onClick } ) {
+function DropdownIcon( { onClick = null } ) {
 	return (
 		<svg
 			height="20"

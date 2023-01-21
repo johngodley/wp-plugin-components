@@ -23,3 +23,5 @@ export { default as Form } from './form';
 export { default as Button } from './button';
 export { default as LoadingDots } from './loading-dots';
 export { default as createInterpolateElement } from './interpolate';
+export { default as TrashIcon } from './icons/trash';
+export { default as HelpIcon } from './icons/help';
