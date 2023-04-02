@@ -114,7 +114,7 @@ const DecodeError = ( { error, links, locale } ) => {
 				<ul>
 					<li>
 						{ createInterpolateElement(
-							__( 'Can you access your {{api}}REST API{{/api}} without it redirecting?.', locale ),
+							__( 'Can you access your {{api}}REST API{{/api}} without it redirecting?', locale ),
 							{
 								api: <ExternalLink url={ links.rootUrl } />,
 							}
