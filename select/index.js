@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /**
  * Internal dependencies
@@ -52,17 +51,6 @@ const Select = props => {
 			) ) }
 		</select>
 	);
-};
-
-Select.propTypes = {
-	items: PropTypes.array.isRequired,
-	value: PropTypes.oneOfType( [
-		PropTypes.string,
-		PropTypes.number,
-	] ).isRequired,
-	name: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired,
-	disabled: PropTypes.bool,
 };
 
 export default Select;
