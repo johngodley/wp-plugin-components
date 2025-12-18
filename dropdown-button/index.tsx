@@ -1,25 +1,13 @@
-/**
- * External dependencies
- */
-
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import classnames from 'classnames';
 import { Popover } from '@headlessui/react';
 import { usePopper } from 'react-popper';
-
-/**
- * Internal dependencies
- */
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { Placement } from '@popperjs/core';
 import DropdownIcon from '../icons/dropdown';
 import Button from '../button';
 import './style.scss';
-
-/**
- * A menu item.
- *
- * @typedef {{name: string, title: string}} ButtonOption
- */
 
 interface DropdownButtonItem {
 	value: string;
@@ -35,12 +23,12 @@ interface DropdownProps {
 	disabled?: boolean;
 	title: string;
 	onSelect: ( name: string ) => void;
-	align?: string;
+	align?: Placement;
 }
 
 export default function DropdownButton( props: DropdownProps ) {
-	const [ referenceElement, setReferenceElement ] = useState();
-	const [ popperElement, setPopperElement ] = useState();
+	const [ referenceElement, setReferenceElement ] = useState< HTMLButtonElement | null >( null );
+	const [ popperElement, setPopperElement ] = useState< HTMLElement | null >( null );
 	const { options, disabled = false, title, align = 'bottom-start' } = props;
 	const { styles, attributes } = usePopper( referenceElement, popperElement, {
 		placement: align,
@@ -54,7 +42,7 @@ export default function DropdownButton( props: DropdownProps ) {
 		],
 	} );
 
-	function onSelect( ev, name: string, toggle ) {
+	function onSelect( ev: MouseEvent< HTMLButtonElement >, name: string, toggle: () => void ) {
 		ev.preventDefault();
 		ev.stopPropagation();
 		toggle();

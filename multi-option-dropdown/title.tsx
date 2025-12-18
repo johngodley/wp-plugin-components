@@ -20,7 +20,7 @@ function findOption( options: MultiOptionValueType[], optionValue: string ): Mul
 	for ( let index = 0; index < options.length; index++ ) {
 		const option = options[ index ];
 
-		if ( option.value === optionValue || optionValue === parseInt( option.value, 10 ) ) {
+		if ( option.value === optionValue ) {
 			return option;
 		}
 
@@ -36,56 +36,57 @@ function findOption( options: MultiOptionValueType[], optionValue: string ): Mul
 	return null;
 }
 
-function badgeOption( option, parent ) {
+function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionValueType ) {
 	if ( ! option ) {
 		return null;
 	}
 
 	return {
 		title: option.badge || option.label,
-		default: option?.default ?? false,
-		onRemove: ( onChange ) => {
+		default: ( option as any )?.default ?? false,
+		onRemove: ( onChange: ( name: string, value: string, isChecked: boolean ) => void ) => {
 			if ( option.value === parent.value ) {
-				return onChange( option.value, option.value, false );
+				return onChange( option.value || '', option.value || '', false );
 			}
 
-			const defaultItem = parent.options.find( ( item ) => item.default );
+			const defaultItem = ( parent.options || [] ).find( ( item: any ) => ( item as any ).default );
 
-			onChange( parent.value, parent.value, defaultItem ? defaultItem.value : '' );
+			onChange( parent.value || '', parent.value || '', defaultItem ? ( defaultItem as any ).value : '' );
 		},
 	};
 }
 
-function getArrayList( selected, options ) {
+function getArrayList( selected: string[], options: MultiOptionValueType[] ) {
 	return selected
 		.map( ( key: string ) => {
 			const parent = findOption( options, key );
 
-			return badgeOption( parent, parent );
+			return badgeOption( parent, parent || ( {} as MultiOptionValueType ) );
 		} )
 		.filter( Boolean );
 }
 
-function getObjectList( selected, options ) {
+function getObjectList( selected: Record< string, string | boolean >, options: MultiOptionValueType[] ) {
 	// Go through selected list and see which one is true or not the default
 	return Object.keys( selected )
 		.map( ( key ) => {
 			const parent = findOption( options, key );
 
 			if ( typeof selected[ key ] === 'string' ) {
-				return badgeOption( findOption( options, selected[ key ] ), parent );
+				const found = findOption( options, selected[ key ] as string );
+				return badgeOption( found, parent || ( {} as MultiOptionValueType ) );
 			}
 
-			return selected[ key ] ? badgeOption( parent, parent ) : null;
+			return selected[ key ] ? badgeOption( parent, parent || ( {} as MultiOptionValueType ) ) : null;
 		} )
 		.filter( Boolean )
-		.filter( ( item ) => ! item.default );
+		.filter( ( item ) => ( item as any ) && ( item as any ).default !== true );
 }
 
 export default function Title( { selected, title, options, showBadges, onChange, disabled }: BadgeListProps ) {
 	const badges = Array.isArray( selected ) ? getArrayList( selected, options ) : getObjectList( selected, options );
 
-	function removeBadge( ev, badge ) {
+	function removeBadge( ev: any, badge: any ) {
 		ev.preventDefault();
 		ev.stopPropagation();
 
@@ -94,16 +95,20 @@ export default function Title( { selected, title, options, showBadges, onChange,
 	}
 
 	if ( badges.length > 0 && showBadges ) {
-		return badges
-			.slice( 0, MAX_BADGES )
-			.map( ( badge, pos: number ) => {
-				return (
-					<Badge key={ pos } small onCancel={ ( ev ) => removeBadge( ev, badge ) } disabled={ disabled }>
-						{ badge.title }
-					</Badge>
-				);
-			} )
-			.concat( [ badges.length > MAX_BADGES ? <span key="end">...</span> : null ] );
+		const displayed = badges.slice( 0, MAX_BADGES ) as any[];
+		const badgeNodes = displayed.map( ( badge: any, pos: number ) => {
+			if ( ! badge ) {
+				return null;
+			}
+
+			return (
+				<Badge key={ pos } small onCancel={ ( ev ) => removeBadge( ev, badge ) } disabled={ disabled }>
+					{ badge.title }
+				</Badge>
+			);
+		} );
+
+		return badges.length > MAX_BADGES ? badgeNodes.concat( [ <span key="end">...</span> ] ) : badgeNodes;
 	}
 
 	if ( badges.length === 0 && title.length > 0 ) {

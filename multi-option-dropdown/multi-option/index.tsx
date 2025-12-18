@@ -9,8 +9,8 @@ import { MultiOptionValueType } from '../types';
 interface MultiOptionProps {
 	option: MultiOptionValueType;
 	isSelected: ( name: string, value: string ) => boolean;
-	onChange: ( newFlags: any ) => void;
-	multiple: boolean;
+	onChange: ( name: string, value: string | boolean, isChecked?: boolean ) => void;
+	multiple?: boolean;
 }
 
 function MultiOption( props: MultiOptionProps ) {
@@ -31,9 +31,9 @@ function MultiOption( props: MultiOptionProps ) {
 
 	return (
 		<MultiOptionItem
-			option={ option }
+			option={ option as any }
 			isSelected={ isSelected }
-			onChange={ onChange }
+			onChange={ onChange as any }
 			optionsType="checkbox"
 			name={ option?.value || '' }
 		/>

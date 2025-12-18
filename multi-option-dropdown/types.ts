@@ -7,7 +7,7 @@ export interface MultiOptionItemType {
 export interface MultiOptionValueType {
 	label: string;
 	value?: string;
-	options: MultiOptionItemType[];
+	options?: MultiOptionItemType[];
 	optionsType?: string;
 	disabled?: boolean;
 	badge?: string;
