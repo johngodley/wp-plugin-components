@@ -19,6 +19,9 @@ const MAX_BADGES = 3;
 function findOption( options: MultiOptionValueType[], optionValue: string ): MultiOptionValueType | null {
 	for ( let index = 0; index < options.length; index++ ) {
 		const option = options[ index ];
+		if ( ! option ) {
+			continue;
+		}
 
 		if ( option.value === optionValue ) {
 			return option;
@@ -36,8 +39,8 @@ function findOption( options: MultiOptionValueType[], optionValue: string ): Mul
 	return null;
 }
 
-function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionValueType ) {
-	if ( ! option ) {
+function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionValueType | null ) {
+	if ( ! option || ! parent ) {
 		return null;
 	}
 
@@ -61,9 +64,9 @@ function getArrayList( selected: string[], options: MultiOptionValueType[] ) {
 		.map( ( key: string ) => {
 			const parent = findOption( options, key );
 
-			return badgeOption( parent, parent || ( {} as MultiOptionValueType ) );
+			return badgeOption( parent, parent );
 		} )
-		.filter( Boolean );
+		.filter( ( item ): item is NonNullable< typeof item > => item !== null );
 }
 
 function getObjectList( selected: Record< string, string | boolean >, options: MultiOptionValueType[] ) {
@@ -74,12 +77,12 @@ function getObjectList( selected: Record< string, string | boolean >, options: M
 
 			if ( typeof selected[ key ] === 'string' ) {
 				const found = findOption( options, selected[ key ] as string );
-				return badgeOption( found, parent || ( {} as MultiOptionValueType ) );
+				return badgeOption( found, parent );
 			}
 
-			return selected[ key ] ? badgeOption( parent, parent || ( {} as MultiOptionValueType ) ) : null;
+			return selected[ key ] ? badgeOption( parent, parent ) : null;
 		} )
-		.filter( Boolean )
+		.filter( ( item ): item is NonNullable< typeof item > => item !== null )
 		.filter( ( item ) => ( item as any ) && ( item as any ).default !== true );
 }
 

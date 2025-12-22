@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 type SpinnerProps = {
@@ -6,7 +6,7 @@ type SpinnerProps = {
 };
 
 const Spinner = ( { size = '' }: SpinnerProps ) => {
-	const classes = classnames( 'wpl-spinner__container', size && ' spinner-' + size );
+	const classes = clsx( 'wpl-spinner__container', size && ' spinner-' + size );
 
 	return (
 		<div className={ classes }>

@@ -4,7 +4,7 @@
 
 import type { ReactNode } from 'react';
 import ClickOutside from '../click-outside';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * onClose callback.
@@ -33,7 +33,7 @@ function ModalContent( { onClose, children, className }: ModalContentProps ) {
 
 	return (
 		<ClickOutside className="wpl-click-outside" onOutside={ onOutside }>
-			<div className={ classnames( 'wpl-modal_content', className ) }>
+			<div className={ clsx( 'wpl-modal_content', className ) }>
 				<div className="wpl-modal_close">
 					<button type="button" onClick={ onClose }>
 						&#x2716;

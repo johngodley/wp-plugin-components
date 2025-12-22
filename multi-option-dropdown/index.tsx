@@ -4,7 +4,7 @@
  * External dependencies
  */
 
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 		<Dropdown
 			renderToggle={ ( isOpen, toggle ) => (
 				<div
-					className={ classnames(
+					className={ clsx(
 						'button',
 						'action',
 						'wpl-multioption__button',
@@ -105,7 +105,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 			align="right"
 			matchMinimum
 			renderContent={ () => (
-				<div className={ classnames( 'wpl-multioption', className ) }>
+				<div className={ clsx( 'wpl-multioption', className ) }>
 					{ options.map( ( option, key ) => (
 						<MultiOption
 							option={ option }

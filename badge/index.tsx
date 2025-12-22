@@ -1,5 +1,5 @@
 import { MouseEvent, KeyboardEvent, MouseEventHandler, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 type BadgeProps = {
@@ -37,7 +37,7 @@ const Badge = ( props: BadgeProps ) => {
 
 	return (
 		<div
-			className={ classnames( 'wpl-badge', className, {
+			className={ clsx( 'wpl-badge', className, {
 				'wpl-badge__click': onClick,
 				'wpl-badge__small': small,
 				'wpl-badge__disabled': disabled,

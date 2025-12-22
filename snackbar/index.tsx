@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 const SHRINK_TIME = 5000;
@@ -57,7 +57,7 @@ function Snackbar( { notices, onClear, snackBarViewText }: SnackbarProps ) {
 		}
 	}
 
-	const classes = classnames( 'notice', 'notice-info', 'wpl-notice', shrunk && 'wpl-notice_shrunk' );
+	const classes = clsx( 'notice', 'notice-info', 'wpl-notice', shrunk && 'wpl-notice_shrunk' );
 	return (
 		<div className={ classes } onClick={ onClick } onKeyDown={ onKeyDown } role="button" tabIndex={ 0 }>
 			<div className="closer">

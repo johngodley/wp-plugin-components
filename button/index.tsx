@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 type ButtonProps = ButtonHTMLAttributes< HTMLButtonElement > & {
@@ -23,7 +23,7 @@ function Button( props: ButtonProps ) {
 		isDestructive = false,
 		...extra
 	} = props;
-	const classes = classnames( 'button', className, {
+	const classes = clsx( 'button', className, {
 		'button-primary': isPrimary,
 		'button-secondary': isSecondary,
 		'button-delete': isDestructive,

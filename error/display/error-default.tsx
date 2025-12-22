@@ -40,9 +40,13 @@ function DisplayDefaultError( props: DisplayDefaultErrorProps ) {
 			{ showInfo && children }
 
 			<ErrorDebug
-				{ ...props }
+				error={ error }
+				locale={ locale }
 				{ ...( hideDebug ? { mini: true } : {} ) }
-				renderDebug={ showSupport ? undefined : props.renderDebug || undefined }
+				{ ...( ! showSupport && props.renderDebug ? { renderDebug: props.renderDebug } : {} ) }
+				{ ...( props.details ? { details: props.details } : {} ) }
+				{ ...( props.versions ? { versions: props.versions } : {} ) }
+				{ ...( props.context ? { context: props.context } : {} ) }
 			/>
 		</>
 	);

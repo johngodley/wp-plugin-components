@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 type NoticeLevel = 'warning' | 'notice' | 'error' | 'general';
@@ -11,7 +11,7 @@ type NoticeProps = {
 };
 
 function Notice( { level = 'notice', children, className }: NoticeProps ) {
-	return <div className={ classnames( `inline-notice inline-${ level }`, className ) }>{ children }</div>;
+	return <div className={ clsx( `inline-notice inline-${ level }`, className ) }>{ children }</div>;
 }
 
 export default Notice;

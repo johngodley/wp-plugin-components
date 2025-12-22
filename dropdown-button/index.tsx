@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { Popover } from '@headlessui/react';
 import { usePopper } from 'react-popper';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -51,13 +51,11 @@ export default function DropdownButton( props: DropdownProps ) {
 	}
 
 	return (
-		<Popover
-			className={ classnames( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }
-		>
+		<Popover className={ clsx( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }>
 			<Popover.Button
 				ref={ setReferenceElement }
 				disabled={ disabled }
-				className={ classnames(
+				className={ clsx(
 					'button',
 					'button-secondary',
 					'wpl-popover__toggle',
@@ -80,7 +78,7 @@ export default function DropdownButton( props: DropdownProps ) {
 						{ options.map( ( { label, value, description }: DropdownButtonItem ) => (
 							<li
 								key={ value }
-								className={ classnames( {
+								className={ clsx( {
 									[ 'wpl-dropdownbutton__' + value ]: true,
 								} ) }
 							>

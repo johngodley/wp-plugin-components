@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 
 type TableProps = {
@@ -9,7 +9,7 @@ type TableProps = {
 
 const Table = ( { className, children }: TableProps ) => {
 	return (
-		<table className={ classnames( 'wpl-table', className ) }>
+		<table className={ clsx( 'wpl-table', className ) }>
 			<tbody>{ children }</tbody>
 		</table>
 	);

@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import DisplayNonceError from './display/error-nonce';
 import DisplayDefaultError from './display/error-default';
 import DisplayKnownError from './display/error-known';
@@ -122,7 +122,7 @@ function Error( props: ErrorComponentProps ) {
 
 	const ErrorComponent = getErrorType( errors, type );
 	return (
-		<div className={ classnames( 'wpl-error', { 'wpl-error__mini': mini } ) }>
+		<div className={ clsx( 'wpl-error', { 'wpl-error__mini': mini } ) }>
 			{ onClear && (
 				<div className="closer" onClick={ handleClear } onKeyDown={ handleClear } role="button" tabIndex={ 0 }>
 					<span className="dashicons dashicons-no-alt" />

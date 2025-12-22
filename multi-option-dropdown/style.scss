@@ -1,4 +1,4 @@
-@import "../style.scss";
+@use "../style" as *;
 
 .wpl-popover__content {
 	padding: 5px;

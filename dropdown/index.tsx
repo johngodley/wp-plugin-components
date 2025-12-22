@@ -1,5 +1,5 @@
 import { ReactNode, useRef, useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import './style.scss';
 import Popover, { getPopoverPosition } from '../popover';
 
@@ -58,11 +58,7 @@ function Dropdown( props: DropdownProps ) {
 	return (
 		<>
 			<div
-				className={ classnames(
-					'wpl-popover__toggle',
-					className,
-					disabled && 'wpl-popover__toggle__disabled'
-				) }
+				className={ clsx( 'wpl-popover__toggle', className, disabled && 'wpl-popover__toggle__disabled' ) }
 				ref={ toggleRef }
 			>
 				{ renderToggle( isShowing, toggleDropdown ) }
@@ -73,10 +69,12 @@ function Dropdown( props: DropdownProps ) {
 					align={ align }
 					valign={ valign }
 					hasArrow={ hasArrow }
-					className={ className }
+					{ ...( className !== undefined ? { className } : {} ) }
 					onClose={ close }
 					popoverPosition={ togglePosition }
-					style={ matchMinimum ? { minWidth: `${ togglePosition.width }px` } : undefined }
+					{ ...( matchMinimum && togglePosition.width
+						? { style: { minWidth: `${ togglePosition.width }px` } }
+						: {} ) }
 				>
 					{ renderContent( () => setShowing( false ) ) }
 				</Popover>

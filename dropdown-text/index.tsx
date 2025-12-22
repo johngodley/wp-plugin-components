@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useDebouncedCallback } from 'use-debounce';
 import LoadingDots from '../loading-dots';
 import Popover, { getPopoverPosition } from '../popover';
@@ -205,7 +205,7 @@ function DropdownText( props: DropdownTextProps ) {
 	}
 
 	return (
-		<div className={ classnames( 'wpl-dropdowntext', className, classes ) }>
+		<div className={ clsx( 'wpl-dropdowntext', className, classes ) }>
 			{ maxChoices > 0 &&
 				valueToArray( value ).map( ( valueId ) => (
 					<Badge
@@ -220,7 +220,7 @@ function DropdownText( props: DropdownTextProps ) {
 
 			<input
 				type="text"
-				className={ classnames( 'regular-text', {
+				className={ clsx( 'regular-text', {
 					'wpl-dropdowntext__max': maxChoices >= 0 && valueToArray( value ).length >= maxChoices,
 				} ) }
 				name={ name }

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import ModalContent from './content';
 import type { ModalProps } from './index';
 
@@ -16,7 +16,7 @@ function ModalWrapper( { padding = true, ...rest }: ModalWrapperProps ) {
 		};
 	}, [] );
 
-	const classes = classnames( {
+	const classes = clsx( {
 		'wpl-modal_wrapper': true,
 		'wpl-modal_wrapper-padding': padding,
 	} );

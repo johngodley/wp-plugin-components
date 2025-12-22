@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type React from 'react';
-import Dropzone, { DropzoneState } from 'react-dropzone';
+import { useDropzone } from './use-dropzone';
 import UploaderContent from './content';
 import './style.scss';
 
@@ -19,31 +19,35 @@ export type UploaderProps = {
 };
 
 function Uploader( props: UploaderProps ) {
-	const [ hover, setHover ] = useState( false );
 	const [ file, setFile ] = useState< File | null >( null );
 
 	function onDrop( accepted: File[] ) {
-		setHover( false );
-		setFile( accepted[ 0 ] );
+		const firstFile = accepted[ 0 ];
+		if ( firstFile ) {
+			setFile( firstFile );
+		}
 	}
 
+	// ✨ Native HTML5 drag and drop - no external library needed!
+	const dropzone = useDropzone( {
+		multiple: false,
+		onDrop,
+		onDragEnter: () => {
+			// Drag enter handled by hook
+		},
+		onDragLeave: () => {
+			// Drag leave handled by hook
+		},
+	} );
+
 	return (
-		<Dropzone
-			multiple={ false }
-			onDrop={ onDrop }
-			onDragLeave={ () => setHover( false ) }
-			onDragEnter={ () => setHover( true ) }
-		>
-			{ ( upload: DropzoneState ) => (
-				<UploaderContent
-					dropzone={ upload }
-					hover={ hover }
-					file={ file }
-					clearFile={ () => setFile( null ) }
-					{ ...props }
-				/>
-			) }
-		</Dropzone>
+		<UploaderContent
+			dropzone={ dropzone }
+			hover={ dropzone.isDragActive }
+			file={ file }
+			clearFile={ () => setFile( null ) }
+			{ ...props }
+		/>
 	);
 }
 

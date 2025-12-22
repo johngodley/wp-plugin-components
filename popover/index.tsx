@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import FocusLock from 'react-focus-lock';
 import PopoverContainer from './container';
 import ClickOutside from '../click-outside';
@@ -59,7 +59,7 @@ function Popover( props: PopoverProps ) {
 	}, [ onClose ] );
 
 	return createPortal(
-		<ClickOutside className={ classnames( 'wpl-popover', className ) } onOutside={ onOutside }>
+		<ClickOutside className={ clsx( 'wpl-popover', className ) } onOutside={ onOutside }>
 			<FocusLock returnFocus disabled={ ! focusLock }>
 				<PopoverContainer
 					position={ getPosition( popoverPosition ) }

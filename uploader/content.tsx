@@ -1,6 +1,6 @@
 import type React from 'react';
-import classnames from 'classnames';
-import type { DropzoneState } from 'react-dropzone';
+import clsx from 'clsx';
+import type { DropzoneState } from './use-dropzone';
 
 type UploaderContentProps = {
 	hover: boolean;
@@ -39,7 +39,7 @@ function UploaderContent( props: UploaderContentProps ) {
 		cancelText,
 	} = props;
 	const { getRootProps, getInputProps, open } = dropzone;
-	const className = classnames( 'wpl-dropzone', { 'wpl-dropzone__hover': hover } );
+	const className = clsx( 'wpl-dropzone', { 'wpl-dropzone__hover': hover } );
 	const rootProps = getRootProps( {
 		onClick: ( event ) => event.stopPropagation(),
 		onKeyDown: ( event ) => {
@@ -48,10 +48,12 @@ function UploaderContent( props: UploaderContentProps ) {
 			}
 		},
 	} );
+	const inputProps = getInputProps();
+	const { ref, ...inputPropsWithoutRef } = inputProps;
 
 	return (
 		<div { ...rootProps } className={ className }>
-			<input { ...getInputProps() } />
+			<input { ...inputPropsWithoutRef } ref={ ref } />
 
 			{ ( file === null || ( disabled && ! isUploading ) ) && (
 				<>
