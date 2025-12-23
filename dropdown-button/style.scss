@@ -1,4 +1,4 @@
-@import "../../global.scss";
+@use "../../global" as *;
 @import "@wordpress/base-styles/colors";
 
 .wpl-dropdownbutton .wpl-popover__content {
@@ -17,8 +17,8 @@
 }
 
 .wpl-popover {
-	box-shadow: 0 3px 30px rgba($gray-900, 0.1);
-	border: 1px solid $gray-400;
+	//box-shadow: 0 3px 30px rgba($gray-900, 0.1);
+	//border: 1px solid $gray-400;
 	max-height: 400px;
 	overflow: scroll;
 	z-index: 10000;
@@ -43,7 +43,7 @@
 		margin: 0;
 		padding: 0;
 		max-width: 300px;
-		background-color: white;
+		background-color: #fff;
 	}
 
 	li {
@@ -60,7 +60,7 @@
 			padding: 10px 15px;
 			text-align: left;
 			white-space: normal;
-			background-color: white;
+			background-color: #fff;
 
 			span {
 				font-weight: normal;

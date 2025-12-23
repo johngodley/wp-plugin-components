@@ -2,9 +2,9 @@ import { MultiOptionItemType } from '../types';
 
 interface MultiOptionItemProps {
 	option: MultiOptionItemType;
-	onChange: ( name: string, value: string | boolean ) => void;
+	onChange: ( name: string, value: string, isChecked: boolean ) => void;
 	isSelected: ( name: string, value: string ) => boolean;
-	optionsType: string;
+	optionsType: 'checkbox' | 'radio' | string;
 	name: string;
 }
 
@@ -25,9 +25,7 @@ export default function MultiOptionItem( {
 				type={ optionsType }
 				name={ name ? name : value }
 				value={ value }
-				onChange={ ( ev ) =>
-					onChange( name, value, optionsType === 'checkbox' ? ev.target.checked : ev.target.value )
-				}
+				onChange={ ( ev ) => onChange( name, value, optionsType === 'checkbox' ? ev.target.checked : true ) }
 				checked={ isSelected( name, value ) }
 				disabled={ disabled }
 				tabIndex={ 0 }

@@ -28,4 +28,19 @@
 			background-color: $gray-400;
 		}
 	}
+
+	button {
+		border: none;
+		width: 100%;
+		text-align: left;
+		padding: 10px 10px;
+		white-space: nowrap;
+		box-sizing: border-box;
+		cursor: pointer;
+		background-color: transparent;
+
+		&:hover {
+			background-color: $gray-200;
+		}
+	}
 }

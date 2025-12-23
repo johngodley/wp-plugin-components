@@ -4,7 +4,7 @@
  * External dependencies
  */
 
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * Internal dependencies
@@ -17,10 +17,13 @@ import DropdownIcon from '../icons/dropdown';
 import { MultiOptionValueType } from './types';
 import './style.scss';
 
+type SelectedMap = Record< string, string | boolean | undefined >;
+type SelectedValue = string[] | SelectedMap;
+
 interface MultiOptionDropdownProps {
 	options: MultiOptionValueType[];
-	selected: Object | string[];
-	onChange: ( newFlags: any ) => void;
+	selected: SelectedValue;
+	onChange: ( newFlags: SelectedValue ) => void;
 	title?: string;
 	badges?: boolean;
 	disabled?: boolean;
@@ -44,26 +47,31 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 
 	function isSelected( name: string, value: string ) {
 		if ( asObject ) {
+			const selectedMap = selected as SelectedMap;
 			if ( name === value ) {
-				return selected[ value ];
+				return Boolean( selectedMap[ value ] );
 			}
-
-			return selected[ name ] === value;
+			return selectedMap[ name ] === value;
 		}
 
-		return selected.indexOf( value ) !== -1;
+		const selectedList = selected as string[];
+		return selectedList.indexOf( value ) !== -1;
 	}
 
-	function changeValue( name, value, isChecked ) {
+	function changeValue( name: string, value: string, isChecked: boolean ) {
 		if ( asObject ) {
+			const selectedMap = selected as SelectedMap;
 			onChange( {
-				...selected,
+				...selectedMap,
 				[ name ]: name === value ? isChecked : value,
 			} );
 		} else {
+			const selectedList = selected as string[];
 			const toChange = name === value ? name : value;
 
-			onChange( isChecked ? [ ...selected, toChange ] : selected.filter( ( item ) => item !== toChange ) );
+			onChange(
+				isChecked ? [ ...selectedList, toChange ] : selectedList.filter( ( item ) => item !== toChange )
+			);
 		}
 	}
 
@@ -71,14 +79,14 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 		<Dropdown
 			renderToggle={ ( isOpen, toggle ) => (
 				<div
-					className={ classnames(
+					className={ clsx(
 						'button',
 						'action',
 						'wpl-multioption__button',
 						disabled && 'wpl-multioption__disabled',
 						isOpen ? 'wpl-multioption__button_enabled' : null
 					) }
-					onClick={ toggle }
+					onClick={ toggle as any }
 					tabIndex={ 0 }
 					aria-label={ title || '' }
 				>
@@ -88,7 +96,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 						showBadges={ badges }
 						options={ options }
 						disabled={ disabled }
-						onChange={ changeValue }
+						onChange={ changeValue as any }
 					/>
 					<DropdownIcon />
 				</div>
@@ -97,9 +105,14 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 			align="right"
 			matchMinimum
 			renderContent={ () => (
-				<div className={ classnames( 'wpl-multioption', className ) }>
+				<div className={ clsx( 'wpl-multioption', className ) }>
 					{ options.map( ( option, key ) => (
-						<MultiOption option={ option } key={ key } isSelected={ isSelected } onChange={ changeValue } />
+						<MultiOption
+							option={ option }
+							key={ key }
+							isSelected={ isSelected }
+							onChange={ changeValue as any }
+						/>
 					) ) }
 				</div>
 			) }

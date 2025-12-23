@@ -13,7 +13,7 @@ interface MultiOptionProps {
 
 function MultiOptionGroup( props: MultiOptionProps ) {
 	const { option, optionsType, onChange, isSelected } = props;
-	const { options, label, value } = option;
+	const { options = [], label, value } = option;
 
 	return (
 		<div className="wpl-multioption__group">
