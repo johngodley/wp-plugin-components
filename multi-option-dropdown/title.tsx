@@ -59,7 +59,19 @@ function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionVa
 	};
 }
 
+const ALL_OPTION_VALUE = '';
+
+function getAllBadge( options: MultiOptionValueType[] ) {
+	const option = findOption( options, ALL_OPTION_VALUE );
+	const badge = badgeOption( option, option );
+
+	return badge ? [ badge ] : [];
+}
+
 function getArrayList( selected: string[], options: MultiOptionValueType[] ) {
+	if ( selected.indexOf( ALL_OPTION_VALUE ) !== -1 ) {
+		return getAllBadge( options );
+	}
 	return selected
 		.map( ( key: string ) => {
 			const parent = findOption( options, key );
@@ -86,8 +98,21 @@ function getObjectList( selected: Record< string, string | boolean >, options: M
 		.filter( ( item ) => ( item as any ) && ( item as any ).default !== true );
 }
 
+function hasAllSelection( selected: any ): boolean {
+	if ( Array.isArray( selected ) ) {
+		return selected.indexOf( ALL_OPTION_VALUE ) !== -1;
+	}
+
+	return Boolean( selected?.[ ALL_OPTION_VALUE ] );
+}
+
 export default function Title( { selected, title, options, showBadges, onChange, disabled }: BadgeListProps ) {
-	const badges = Array.isArray( selected ) ? getArrayList( selected, options ) : getObjectList( selected, options );
+	const badges =
+		hasAllSelection( selected ) && options.length > 0
+			? getAllBadge( options )
+			: Array.isArray( selected )
+				? getArrayList( selected, options )
+				: getObjectList( selected, options );
 
 	function removeBadge( ev: any, badge: any ) {
 		ev.preventDefault();
