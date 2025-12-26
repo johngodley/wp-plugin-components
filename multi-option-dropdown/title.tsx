@@ -139,7 +139,8 @@ export default function Title( { selected, title, options, showBadges, onChange,
 		return badges.length > MAX_BADGES ? badgeNodes.concat( [ <span key="end">...</span> ] ) : badgeNodes;
 	}
 
-	if ( badges.length === 0 && title.length > 0 ) {
+	// If badges are not being displayed, or there are no badges, show the title when present.
+	if ( title.length > 0 && ( ! showBadges || badges.length === 0 ) ) {
 		return <h5>{ title }</h5>;
 	}
 
