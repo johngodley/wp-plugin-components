@@ -24,12 +24,13 @@ interface DropdownProps {
 	title: string;
 	onSelect: ( name: string ) => void;
 	align?: Placement;
+	selected?: string;
 }
 
 export default function DropdownButton( props: DropdownProps ) {
 	const [ referenceElement, setReferenceElement ] = useState< HTMLButtonElement | null >( null );
 	const [ popperElement, setPopperElement ] = useState< HTMLElement | null >( null );
-	const { options, disabled = false, title, align = 'bottom-start' } = props;
+	const { options, disabled = false, title, align = 'bottom-start', selected } = props;
 	const { styles, attributes } = usePopper( referenceElement, popperElement, {
 		placement: align,
 		modifiers: [
@@ -71,7 +72,7 @@ export default function DropdownButton( props: DropdownProps ) {
 				ref={ setPopperElement }
 				style={ styles.popper }
 				{ ...attributes.popper }
-				className="wpl-popover"
+				className="wpl-popover wpl-popover__content"
 			>
 				{ ( { close } ) => (
 					<ul>
@@ -80,8 +81,14 @@ export default function DropdownButton( props: DropdownProps ) {
 								key={ value }
 								className={ clsx( {
 									[ 'wpl-dropdownbutton__' + value ]: true,
+									[ 'wpl-dropdownbutton__selected' ]: selected === value,
 								} ) }
 							>
+								{ selected === value ? (
+									<span className="wpl-dropdownbutton__selected-icon">✓</span>
+								) : (
+									<span className="wpl-dropdownbutton__selected-icon"></span>
+								) }
 								<Button onClick={ ( ev ) => onSelect( ev, value, close ) }>
 									{ label }
 

@@ -35,6 +35,8 @@
 		align-items: center;
 		min-height: 30px;
 		flex-wrap: nowrap;
+		background-color: #fff;
+		color: #32373c;
 	}
 
 	ul,
@@ -49,34 +51,43 @@
 	li {
 		display: flex;
 		justify-content: space-between;
-		border-bottom: 1px solid #ddd;
+		align-items: center;
+		gap: 5px;
 		font-weight: 500;
+
+		&:hover {
+			background-color: #2684ff;
+			color: $white;
+
+			span {
+				color: $white;
+			}
+		}
+
+		span {
+			width: 20px;
+			text-align: center;
+		}
 
 		.button {
 			border: none;
 			display: block;
 			width: 100%;
 			border-radius: 0;
-			padding: 10px 15px;
-			text-align: left;
+			padding: 0;
 			white-space: normal;
-			background-color: #fff;
+			box-shadow: none;
+			text-align: left;
 
-			span {
-				font-weight: normal;
-				line-height: 1.6;
-				display: block;
-				margin-bottom: 5px;
-				color: #666;
-			}
+			font-weight: normal;
+			line-height: 1.6;
+			display: block;
+			color: #666;
+			background-color: transparent;
 
 			&:hover {
-				background-color: #2684ff;
-				color: $white;
-
-				span {
-					color: $white;
-				}
+				background-color: transparent;
+				color: #fff;
 			}
 		}
 
