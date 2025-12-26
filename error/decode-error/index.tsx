@@ -14,7 +14,6 @@ import {
 	isRedirectedAPI,
 	isCachedApi,
 	isDeprecatedApi,
-	isRemoveChildError,
 } from './error-detect';
 import getErrorDetails from './error-details';
 import extractPhpError from './php-details';
@@ -248,19 +247,6 @@ const DecodeError = ( { error, links, locale }: DecodeErrorProps ) => {
 					{ __(
 						'Your REST API appears to be cached and this will cause problems. Please exclude your REST API from your caching system.',
 						locale
-					) }
-				</p>
-			</>
-		);
-	}
-
-	if ( isRemoveChildError( error ) ) {
-		return (
-			<>
-				<p>{ getErrorDetails( error ) }</p>
-				<p>
-					{ __(
-						'You are running a plugin or a browser extension that is modifying the page and breaking Redirection.', locale
 					) }
 				</p>
 			</>
