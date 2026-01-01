@@ -80,7 +80,6 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 			renderToggle={ ( isOpen, toggle ) => (
 				<div
 					className={ clsx(
-						'button',
 						'action',
 						'wpl-multioption__button',
 						disabled && 'wpl-multioption__disabled',

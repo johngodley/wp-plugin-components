@@ -39,13 +39,23 @@
 // 	}
 // }
 
-.button.wpl-multioption__button,
 .wpl-multioption__button {
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	box-shadow: none;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
 
 	height: 30px;
 	max-width: 500px;
