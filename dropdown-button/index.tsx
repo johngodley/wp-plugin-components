@@ -53,52 +53,60 @@ export default function DropdownButton( props: DropdownProps ) {
 
 	return (
 		<Popover className={ clsx( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }>
-			<Popover.Button
-				ref={ setReferenceElement }
-				disabled={ disabled }
+			<button
+				onClick={ () => props.onSelect( options[ 0 ].value ) }
+				type="button"
 				className={ clsx(
-					'button',
-					'button-secondary',
-					'wpl-popover__toggle',
+					'wpl-dropdownbutton',
+					'wpl-dropdownbutton__single',
 					disabled && 'wpl-dropdownbutton__disabled'
 				) }
 			>
 				<h5>{ title }</h5>
+			</button>
 
-				<DropdownIcon />
-			</Popover.Button>
+			{ options.length > 1 && (
+				<>
+					<Popover.Button
+						ref={ setReferenceElement }
+						disabled={ disabled }
+						className={ clsx( 'wpl-popover__toggle', disabled && 'wpl-dropdownbutton__disabled' ) }
+					>
+						<DropdownIcon />
+					</Popover.Button>
+					<Popover.Panel
+						ref={ setPopperElement }
+						style={ styles.popper }
+						{ ...attributes.popper }
+						className="wpl-popover wpl-popover__content"
+					>
+						{ ( { close } ) => (
+							<ul>
+								{ options.map( ( { label, value, description }: DropdownButtonItem ) => (
+									<li
+										key={ value }
+										className={ clsx( {
+											[ 'wpl-dropdownbutton__' + value ]: true,
+											[ 'wpl-dropdownbutton__selected' ]: selected === value,
+										} ) }
+									>
+										{ selected === value ? (
+											<span className="wpl-dropdownbutton__selected-icon">✓</span>
+										) : (
+											<span className="wpl-dropdownbutton__selected-icon"></span>
+										) }
+										<Button onClick={ ( ev ) => onSelect( ev, value, close ) }>
+											{ label }
 
-			<Popover.Panel
-				ref={ setPopperElement }
-				style={ styles.popper }
-				{ ...attributes.popper }
-				className="wpl-popover wpl-popover__content"
-			>
-				{ ( { close } ) => (
-					<ul>
-						{ options.map( ( { label, value, description }: DropdownButtonItem ) => (
-							<li
-								key={ value }
-								className={ clsx( {
-									[ 'wpl-dropdownbutton__' + value ]: true,
-									[ 'wpl-dropdownbutton__selected' ]: selected === value,
-								} ) }
-							>
-								{ selected === value ? (
-									<span className="wpl-dropdownbutton__selected-icon">✓</span>
-								) : (
-									<span className="wpl-dropdownbutton__selected-icon"></span>
-								) }
-								<Button onClick={ ( ev ) => onSelect( ev, value, close ) }>
-									{ label }
-
-									{ description && <span>{ description }</span> }
-								</Button>
-							</li>
-						) ) }
-					</ul>
-				) }
-			</Popover.Panel>
+											{ description && <span>{ description }</span> }
+										</Button>
+									</li>
+								) ) }
+							</ul>
+						) }
+					</Popover.Panel>
+				</>
+			) }
 		</Popover>
 	);
 }

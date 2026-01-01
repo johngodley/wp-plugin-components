@@ -29,14 +29,29 @@
 }
 
 .wpl-dropdownbutton {
-	.button {
-		border-color: #7e8993;
-		display: flex;
-		align-items: center;
-		min-height: 30px;
-		flex-wrap: nowrap;
-		background-color: #fff;
-		color: #32373c;
+	border-color: #7e8993;
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	flex-wrap: nowrap;
+	background-color: #fff !important;
+	color: #32373c;
+	text-decoration: none;
+	font-size: 13px;
+	line-height: 2.15384615;
+	margin: 0;
+	padding: 0 10px;
+	cursor: pointer;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-appearance: none;
+	border-radius: 3px;
+
+	button {
+		border: none;
+		padding: 0;
+		background-color: transparent;
+		min-height: inherit;
 	}
 
 	ul,
