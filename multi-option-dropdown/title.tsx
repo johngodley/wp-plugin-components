@@ -107,12 +107,14 @@ function hasAllSelection( selected: any ): boolean {
 }
 
 export default function Title( { selected, title, options, showBadges, onChange, disabled }: BadgeListProps ) {
-	const badges =
-		hasAllSelection( selected ) && options.length > 0
-			? getAllBadge( options )
-			: Array.isArray( selected )
-				? getArrayList( selected, options )
-				: getObjectList( selected, options );
+	let badges;
+	if ( hasAllSelection( selected ) && options.length > 0 ) {
+		badges = getAllBadge( options );
+	} else if ( Array.isArray( selected ) ) {
+		badges = getArrayList( selected, options );
+	} else {
+		badges = getObjectList( selected, options );
+	}
 
 	function removeBadge( ev: any, badge: any ) {
 		ev.preventDefault();

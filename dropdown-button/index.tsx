@@ -54,7 +54,7 @@ export default function DropdownButton( props: DropdownProps ) {
 	return (
 		<Popover className={ clsx( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }>
 			<button
-				onClick={ () => props.onSelect( options[ 0 ].value ) }
+				onClick={ () => options[ 0 ] && props.onSelect( options[ 0 ].value ) }
 				type="button"
 				className={ clsx(
 					'wpl-dropdownbutton',
@@ -87,7 +87,7 @@ export default function DropdownButton( props: DropdownProps ) {
 										key={ value }
 										className={ clsx( {
 											[ 'wpl-dropdownbutton__' + value ]: true,
-											[ 'wpl-dropdownbutton__selected' ]: selected === value,
+											'wpl-dropdownbutton__selected': selected === value,
 										} ) }
 									>
 										{ selected === value ? (
