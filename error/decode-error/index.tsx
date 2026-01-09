@@ -213,7 +213,7 @@ const DecodeError = ( { error, links, locale }: DecodeErrorProps ) => {
 				</p>
 				{ php.length > 1 && (
 					<p>
-						<strong>{ __( 'Possible cause', locale ) }:</strong> <code>{ php.substr( 0, 1000 ) }</code>
+						<strong>{ __( 'Possible cause', locale ) }:</strong> <code>{ php.slice( 0, 1000 ) }</code>
 					</p>
 				) }
 			</>
