@@ -62,6 +62,23 @@
 		margin: 0;
 	}
 
+	button {
+		border: none;
+		background-color: transparent;
+		padding: 0;
+		text-align: left;
+		width: 100%;
+		cursor: pointer;
+		font-size: 13px;
+		line-height: 1.6;
+		color: #666;
+		font-weight: normal;
+
+		&:hover {
+			background-color: #deebff;
+		}
+	}
+
 	a {
 		display: block;
 		padding: 2px 3px;
