@@ -44,7 +44,11 @@ function getDebug( error: any, versions?: string, context?: string ) {
 		message.push( '' );
 	}
 
-	message.push( 'Error: ' + getErrorDetails( error ) );
+	const details = getErrorDetails( error );
+
+	if ( typeof details === 'string' && details.length > 0 ) {
+		message.push( 'Error: ' + details );
+	}
 
 	if ( data ) {
 		message.push( 'Raw: ' + data );
