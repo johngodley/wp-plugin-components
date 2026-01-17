@@ -16,7 +16,7 @@ export interface DropzoneState {
 		type: string;
 		style: { display: string };
 		onChange: ( event: React.ChangeEvent< HTMLInputElement > ) => void;
-		ref: React.RefObject< HTMLInputElement | null >;
+		ref: React.RefObject< HTMLInputElement >;
 		multiple?: boolean;
 	};
 	open: () => void;
@@ -131,7 +131,7 @@ export function useDropzone( options: UseDropzoneOptions ): DropzoneState {
 			type: 'file' as const,
 			style: { display: 'none' },
 			onChange: handleFileInputChange,
-			ref: inputRef,
+			ref: inputRef as React.RefObject< HTMLInputElement >,
 			...( ! multiple && { multiple: false } ),
 		};
 	}, [ handleFileInputChange, multiple ] );
