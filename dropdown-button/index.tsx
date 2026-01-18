@@ -1,12 +1,7 @@
-import { useState, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 import clsx from 'clsx';
-import { Popover } from '@headlessui/react';
-import { usePopper } from 'react-popper';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import type { Placement } from '@popperjs/core';
+import { Popover, PopoverButton, PopoverPanel, CloseButton } from '@headlessui/react';
 import DropdownIcon from '../icons/dropdown';
-import Button from '../button';
 import './style.scss';
 
 interface DropdownButtonItem {
@@ -23,62 +18,53 @@ interface DropdownProps {
 	disabled?: boolean;
 	title: string;
 	onSelect: ( name: string ) => void;
-	align?: Placement;
 	selected?: string;
 }
 
 export default function DropdownButton( props: DropdownProps ) {
-	const [ referenceElement, setReferenceElement ] = useState< HTMLButtonElement | null >( null );
-	const [ popperElement, setPopperElement ] = useState< HTMLElement | null >( null );
-	const { options, disabled = false, title, align = 'bottom-start', selected } = props;
-	const { styles, attributes } = usePopper( referenceElement, popperElement, {
-		placement: align,
-		modifiers: [
-			{
-				name: 'offset',
-				options: {
-					offset: [ 0, 2 ],
-				},
-			},
-		],
-	} );
+	const { options, disabled = false, title, selected } = props;
 
-	function onSelect( ev: MouseEvent< HTMLButtonElement >, name: string, toggle: () => void ) {
+	function onSelect( ev: MouseEvent< HTMLButtonElement >, name: string, close: () => void ) {
 		ev.preventDefault();
 		ev.stopPropagation();
-		toggle();
+		close();
 
 		props.onSelect( name );
+	}
+
+	function handleMainButtonClick( ev: MouseEvent< HTMLButtonElement > ) {
+		ev.preventDefault();
+		const current = selected || options[ 0 ]?.value;
+		if ( current ) {
+			props.onSelect( current );
+		}
 	}
 
 	return (
 		<Popover className={ clsx( 'wpl-dropdownbutton', options.length <= 1 ? 'wpl-dropdownbutton__single' : null ) }>
 			<button
-				onClick={ () => options[ 0 ] && props.onSelect( options[ 0 ].value ) }
+				onClick={ handleMainButtonClick }
 				type="button"
-				className={ clsx(
-					'wpl-dropdownbutton',
-					'wpl-dropdownbutton__single',
-					disabled && 'wpl-dropdownbutton__disabled'
-				) }
+				className={ clsx( 'wpl-dropdownbutton__main', disabled && 'wpl-dropdownbutton__disabled' ) }
 			>
 				<h5>{ title }</h5>
 			</button>
 
 			{ options.length > 1 && (
 				<>
-					<Popover.Button
-						ref={ setReferenceElement }
+					<PopoverButton
 						disabled={ disabled }
-						className={ clsx( 'wpl-popover__toggle', disabled && 'wpl-dropdownbutton__disabled' ) }
+						className={ clsx(
+							'wpl-dropdownbutton',
+							'wpl-popover__toggle',
+							disabled && 'wpl-dropdownbutton__disabled'
+						) }
 					>
 						<DropdownIcon />
-					</Popover.Button>
-					<Popover.Panel
-						ref={ setPopperElement }
-						style={ styles.popper }
-						{ ...attributes.popper }
-						className="wpl-popover wpl-popover__content"
+					</PopoverButton>
+					<PopoverPanel
+						anchor="bottom start"
+						className="wpl-dropdownbutton__popover wpl-popover wpl-popover__content"
 					>
 						{ ( { close } ) => (
 							<ul>
@@ -86,6 +72,7 @@ export default function DropdownButton( props: DropdownProps ) {
 									<li
 										key={ value }
 										className={ clsx( {
+											'wpl-dropdownbutton__item': true,
 											[ 'wpl-dropdownbutton__' + value ]: true,
 											'wpl-dropdownbutton__selected': selected === value,
 										} ) }
@@ -95,16 +82,22 @@ export default function DropdownButton( props: DropdownProps ) {
 										) : (
 											<span className="wpl-dropdownbutton__selected-icon"></span>
 										) }
-										<Button onClick={ ( ev ) => onSelect( ev, value, close ) }>
+										<CloseButton
+											as="button"
+											className="button"
+											onClick={ ( ev: MouseEvent< HTMLButtonElement > ) =>
+												onSelect( ev, value, close )
+											}
+										>
 											{ label }
 
 											{ description && <span>{ description }</span> }
-										</Button>
+										</CloseButton>
 									</li>
 								) ) }
 							</ul>
 						) }
-					</Popover.Panel>
+					</PopoverPanel>
 				</>
 			) }
 		</Popover>

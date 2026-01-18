@@ -5,9 +5,15 @@
 import Badge from '../badge';
 import { MultiOptionValueType } from './types';
 
+interface BadgeType {
+	title: string;
+	default: boolean;
+	onRemove: ( onChange: ( name: string, value: string, isChecked: boolean ) => void ) => void;
+}
+
 interface BadgeListProps {
-	selected: any;
-	onChange: ( newSelected: any ) => void;
+	selected: string[] | Record< string, string | boolean >;
+	onChange: ( name: string, value: string, isChecked: boolean ) => void;
 	disabled: boolean;
 	options: MultiOptionValueType[];
 	title: string;
@@ -39,22 +45,29 @@ function findOption( options: MultiOptionValueType[], optionValue: string ): Mul
 	return null;
 }
 
-function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionValueType | null ) {
+function badgeOption( option: MultiOptionValueType | null, parent: MultiOptionValueType | null ): BadgeType | null {
 	if ( ! option || ! parent ) {
 		return null;
 	}
 
 	return {
 		title: option.badge || option.label,
-		default: ( option as any )?.default ?? false,
+		default: option.default ?? false,
 		onRemove: ( onChange: ( name: string, value: string, isChecked: boolean ) => void ) => {
 			if ( option.value === parent.value ) {
+				// Remove the parent option itself
 				return onChange( option.value || '', option.value || '', false );
 			}
 
-			const defaultItem = ( parent.options || [] ).find( ( item: any ) => ( item as any ).default );
+			// Switching to a different child option - find the default one
+			const defaultItem = ( parent.options || [] ).find( ( item ) => item.default );
 
-			onChange( parent.value || '', parent.value || '', defaultItem ? ( defaultItem as any ).value : '' );
+			// When removing a non-default option, select the default if exists, otherwise just deselect
+			if ( defaultItem ) {
+				onChange( parent.value || '', defaultItem.value, true );
+			} else {
+				onChange( parent.value || '', option.value || '', false );
+			}
 		},
 	};
 }
@@ -95,10 +108,10 @@ function getObjectList( selected: Record< string, string | boolean >, options: M
 			return selected[ key ] ? badgeOption( parent, parent ) : null;
 		} )
 		.filter( ( item ): item is NonNullable< typeof item > => item !== null )
-		.filter( ( item ) => ( item as any ) && ( item as any ).default !== true );
+		.filter( ( item ) => item && item.default !== true );
 }
 
-function hasAllSelection( selected: any ): boolean {
+function hasAllSelection( selected: string[] | Record< string, string | boolean > ): boolean {
 	if ( Array.isArray( selected ) ) {
 		return selected.indexOf( ALL_OPTION_VALUE ) !== -1;
 	}
@@ -116,7 +129,7 @@ export default function Title( { selected, title, options, showBadges, onChange,
 		badges = getObjectList( selected, options );
 	}
 
-	function removeBadge( ev: any, badge: any ) {
+	function removeBadge( ev: React.MouseEvent, badge: BadgeType ) {
 		ev.preventDefault();
 		ev.stopPropagation();
 
@@ -125,8 +138,8 @@ export default function Title( { selected, title, options, showBadges, onChange,
 	}
 
 	if ( badges.length > 0 && showBadges ) {
-		const displayed = badges.slice( 0, MAX_BADGES ) as any[];
-		const badgeNodes = displayed.map( ( badge: any, pos: number ) => {
+		const displayed = badges.slice( 0, MAX_BADGES );
+		const badgeNodes = displayed.map( ( badge, pos ) => {
 			if ( ! badge ) {
 				return null;
 			}

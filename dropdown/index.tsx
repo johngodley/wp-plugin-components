@@ -6,6 +6,8 @@ import Popover, { getPopoverPosition } from '../popover';
 type Align = 'left' | 'right' | 'centre';
 type Valign = 'top' | 'bottom';
 
+type ToggleEvent = Event | React.MouseEvent | React.KeyboardEvent;
+
 type DropdownProps = {
 	className?: string;
 	align?: Align;
@@ -15,7 +17,7 @@ type DropdownProps = {
 	matchMinimum?: boolean;
 	onClose?: () => void;
 	renderContent: ( toggle: () => void ) => ReactNode;
-	renderToggle: ( isShowing: boolean, toggle: ( ev?: Event ) => void ) => ReactNode;
+	renderToggle: ( isShowing: boolean, toggle: ( ev?: ToggleEvent ) => void ) => ReactNode;
 };
 
 function Dropdown( props: DropdownProps ) {
@@ -34,7 +36,7 @@ function Dropdown( props: DropdownProps ) {
 	const [ togglePosition, setTogglePosition ] = useState< ReturnType< typeof getPopoverPosition > | null >( null );
 	const toggleRef = useRef< HTMLDivElement | null >( null );
 
-	const toggleDropdown = ( ev?: Event ) => {
+	const toggleDropdown = ( ev?: ToggleEvent ) => {
 		if ( ! toggleRef.current ) {
 			return;
 		}

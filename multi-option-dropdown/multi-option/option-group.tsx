@@ -6,7 +6,7 @@ import { MultiOptionValueType } from '../types';
 
 interface MultiOptionProps {
 	option: MultiOptionValueType;
-	onChange: ( name: string, value: string | boolean ) => void;
+	onChange: ( name: string, value: string, isChecked: boolean ) => void;
 	isSelected: ( name: string, value: string ) => boolean;
 	optionsType: string;
 }

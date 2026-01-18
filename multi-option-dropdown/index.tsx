@@ -17,7 +17,7 @@ import DropdownIcon from '../icons/dropdown';
 import { MultiOptionValueType } from './types';
 import './style.scss';
 
-type SelectedMap = Record< string, string | boolean | undefined >;
+type SelectedMap = Record< string, string | boolean >;
 type SelectedValue = string[] | SelectedMap;
 
 interface MultiOptionDropdownProps {
@@ -85,7 +85,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 						disabled && 'wpl-multioption__disabled',
 						isOpen ? 'wpl-multioption__button_enabled' : null
 					) }
-					onClick={ toggle as any }
+					onClick={ toggle }
 					tabIndex={ 0 }
 					aria-label={ title || '' }
 				>
@@ -95,7 +95,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 						showBadges={ badges }
 						options={ options }
 						disabled={ disabled }
-						onChange={ changeValue as any }
+						onChange={ changeValue }
 					/>
 					<DropdownIcon />
 				</div>
@@ -106,12 +106,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 			renderContent={ () => (
 				<div className={ clsx( 'wpl-multioption', className ) }>
 					{ options.map( ( option, key ) => (
-						<MultiOption
-							option={ option }
-							key={ key }
-							isSelected={ isSelected }
-							onChange={ changeValue as any }
-						/>
+						<MultiOption option={ option } key={ key } isSelected={ isSelected } onChange={ changeValue } />
 					) ) }
 				</div>
 			) }

@@ -2,6 +2,7 @@ export interface MultiOptionItemType {
 	label: string;
 	value: string;
 	disabled?: boolean;
+	default?: boolean;
 }
 
 export interface MultiOptionValueType {
@@ -11,4 +12,5 @@ export interface MultiOptionValueType {
 	optionsType?: string;
 	disabled?: boolean;
 	badge?: string;
+	default?: boolean;
 }

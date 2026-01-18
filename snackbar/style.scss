@@ -1,7 +1,7 @@
 /**
  * The little popup notice
  */
-.wpl-notice {
+.notice.wpl-notice {
 	position: fixed;
 	bottom: 25px;
 	right: 0;
@@ -24,7 +24,7 @@
 	}
 }
 
-.wpl-notice.notice-shrunk {
+.wpl-notice.wpl-notice_shrunk {
 	width: 20px;
 
 	p {

@@ -9,7 +9,7 @@ import { MultiOptionValueType } from '../types';
 interface MultiOptionProps {
 	option: MultiOptionValueType;
 	isSelected: ( name: string, value: string ) => boolean;
-	onChange: ( name: string, value: string | boolean, isChecked?: boolean ) => void;
+	onChange: ( name: string, value: string, isChecked: boolean ) => void;
 	multiple?: boolean;
 }
 
@@ -29,13 +29,21 @@ function MultiOption( props: MultiOptionProps ) {
 		);
 	}
 
+	// For standalone options without sub-options, value is required
+	const value = option.value || '';
+
 	return (
 		<MultiOptionItem
-			option={ option as any }
+			option={ {
+				label: option.label,
+				value,
+				disabled: option.disabled ?? false,
+				default: option.default ?? false,
+			} }
 			isSelected={ isSelected }
-			onChange={ onChange as any }
+			onChange={ onChange }
 			optionsType="checkbox"
-			name={ option?.value || '' }
+			name={ value }
 		/>
 	);
 }

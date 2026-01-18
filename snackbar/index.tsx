@@ -5,30 +5,36 @@ import './style.scss';
 const SHRINK_TIME = 5000;
 let timer: ReturnType< typeof setTimeout > | false = false;
 
+interface Notice {
+	message: string;
+}
+
 type SnackbarProps = {
-	notices: string[];
+	notices: Notice[];
 	snackBarViewText: string;
 	onClear: () => void;
 };
 
 function SnackbarNotice( { notices }: Pick< SnackbarProps, 'notices' > ) {
-	return <>{ notices[ notices.length - 1 ] + ( notices.length > 1 ? ' (' + notices.length + ')' : '' ) }</>;
+	const lastNotice = notices[ notices.length - 1 ];
+	const message = lastNotice?.message ?? '';
+	return <>{ message + ( notices.length > 1 ? ' (' + notices.length + ')' : '' ) }</>;
 }
 
 function Snackbar( { notices, onClear, snackBarViewText }: SnackbarProps ) {
 	const [ shrunk, setShrunk ] = useState( false );
 
+	// Reset shrunk state and start timer when notices change
 	useEffect( () => {
 		if ( notices.length > 0 ) {
+			// Reset to expanded when new notices arrive
+			setShrunk( false );
+
 			if ( timer ) {
 				clearTimeout( timer );
 			}
 
-			if ( shrunk ) {
-				setShrunk( false );
-			} else {
-				timer = setTimeout( () => setShrunk( true ), SHRINK_TIME );
-			}
+			timer = setTimeout( () => setShrunk( true ), SHRINK_TIME );
 		}
 
 		return () => {
@@ -36,7 +42,7 @@ function Snackbar( { notices, onClear, snackBarViewText }: SnackbarProps ) {
 				clearTimeout( timer );
 			}
 		};
-	}, [ notices, shrunk ] );
+	}, [ notices ] );
 
 	if ( notices.length === 0 ) {
 		return null;
