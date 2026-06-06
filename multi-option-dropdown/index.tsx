@@ -26,6 +26,7 @@ interface MultiOptionDropdownProps {
 	onChange: ( newFlags: SelectedValue ) => void;
 	title?: string;
 	badges?: boolean;
+	compact?: boolean;
 	disabled?: boolean;
 	multiple?: boolean;
 	hideTitle?: boolean;
@@ -40,10 +41,12 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 		onChange,
 		title = '',
 		badges = false,
+		compact = false,
 		disabled = false,
 		className,
 		asObject = false,
 	} = props;
+	const classes = clsx( className, compact && 'wpl-multioption__compact' );
 
 	function isSelected( name: string, value: string ) {
 		if ( asObject ) {
@@ -77,6 +80,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 
 	return (
 		<Dropdown
+			className={ classes }
 			renderToggle={ ( isOpen, toggle ) => (
 				<div
 					className={ clsx(
@@ -104,7 +108,7 @@ function MultiOptionDropdown( props: MultiOptionDropdownProps ) {
 			align="right"
 			matchMinimum
 			renderContent={ () => (
-				<div className={ clsx( 'wpl-multioption', className ) }>
+				<div className={ clsx( 'wpl-multioption', classes ) }>
 					{ options.map( ( option, key ) => (
 						<MultiOption option={ option } key={ key } isSelected={ isSelected } onChange={ changeValue } />
 					) ) }
