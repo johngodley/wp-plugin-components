@@ -63,7 +63,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	background-color: #fff;
-	border-color: #7e8993;
+	border-color: #949494;
 	color: #32373c;
 
 	svg {
@@ -198,11 +198,12 @@
 }
 
 .tablenav,
+.redirect-edit,
 .inline-edit-row {
 	.wpl-multioption__button,
 	.actions .button.wpl-multioption__button {
-		min-height: 30px;
-		height: 30px;
+		min-height: 32px;
+		height: 32px;
 	}
 
 	.wpl-multioption__button .wpl-badge,
@@ -215,17 +216,21 @@ body.branch-6-6,
 body.branch-6-7,
 body.branch-6-8,
 body.branch-6-9 {
-	.wpl-multioption__button,
-	.actions .button.wpl-multioption__button {
-		min-height: 30px;
-		height: 30px;
-	}
+	.tablenav,
+	.redirect-edit,
+	.inline-edit-row {
+		.wpl-multioption__button,
+		.actions .button.wpl-multioption__button {
+			min-height: 32px;
+			height: 32px;
+		}
 
-	.wpl-multioption__button .wpl-badge,
-	.actions .wpl-multioption__button .wpl-badge {
-		min-height: 22px;
-		margin-top: 4px;
-		margin-bottom: 4px;
+		.wpl-multioption__button .wpl-badge,
+		.actions .wpl-multioption__button .wpl-badge {
+			min-height: 22px;
+			margin-top: 4px;
+			margin-bottom: 4px;
+		}
 	}
 }
 

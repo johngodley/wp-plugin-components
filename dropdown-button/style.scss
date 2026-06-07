@@ -38,10 +38,11 @@
 }
 
 .wpl-dropdownbutton {
-	border-color: #7e8993;
+	border-color: #949494;
 	display: inline-flex;
 	align-items: center;
-	min-height: 28px;
+	min-height: 40px;
+	height: 40px;
 	flex-wrap: nowrap;
 	background-color: #fff !important;
 	color: #32373c;
@@ -79,6 +80,34 @@
 		fill: #888;
 		border-left: 1px solid #ddd;
 		padding-left: 5px;
+	}
+}
+
+.tablenav,
+.redirect-edit,
+.inline-edit-row {
+	.wpl-dropdownbutton {
+		min-height: 32px;
+		height: 32px;
+	}
+}
+
+body.branch-6-6,
+body.branch-6-7,
+body.branch-6-8,
+body.branch-6-9 {
+	.wpl-dropdownbutton {
+		min-height: 28px;
+		height: 28px;
+	}
+
+	.tablenav,
+	.redirect-edit,
+	.inline-edit-row {
+		.wpl-dropdownbutton {
+			min-height: 32px;
+			height: 32px;
+		}
 	}
 }
 
