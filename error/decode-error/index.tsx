@@ -11,6 +11,7 @@ import {
 	isUnknownError,
 	isParseError,
 	isFailedFetch,
+	isOriginMismatch,
 	isRedirectedAPI,
 	isCachedApi,
 	isDeprecatedApi,
@@ -146,6 +147,39 @@ const DecodeError = ( { error, links, locale }: DecodeErrorProps ) => {
 
 	if ( isRedirectedAPI( error ) ) {
 		return <p>{ __( 'Your REST API is being redirected. Please remove the redirection for the API.', locale ) }</p>;
+	}
+
+	if ( isOriginMismatch( error ) ) {
+		const currentOrigin = ( error as any )?.request?.origins?.current;
+		const testOrigin = ( error as any )?.request?.origins?.test;
+
+		return (
+			<>
+				<p>{ getErrorDetails( error ) }</p>
+				<p>
+					{ __(
+						'This admin page is loaded from a different origin than the REST API URL that WordPress is advertising. The browser will block the request until both use the same protocol, host, and port.',
+						locale
+					) }
+				</p>
+				{ currentOrigin && testOrigin && (
+					<ul>
+						<li>
+							{ __( 'Current admin page origin:', locale ) } <code>{ currentOrigin }</code>
+						</li>
+						<li>
+							{ __( 'REST API origin:', locale ) } <code>{ testOrigin }</code>
+						</li>
+					</ul>
+				) }
+				<p>
+					{ __(
+						'Check your WordPress URL and Site URL settings, and make sure any local proxy or port-forwarded admin URL matches the REST API URL.',
+						locale
+					) }
+				</p>
+			</>
+		);
 	}
 
 	if ( isTooBig( error ) ) {
