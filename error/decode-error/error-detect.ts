@@ -47,6 +47,10 @@ export function isRedirectedAPI( error: ErrorLike ) {
 	return ( error as ApiError )?.code === 'rest_api_redirected';
 }
 
+export function isOriginMismatch( error: ErrorLike ) {
+	return ( error as ApiError )?.code === 'rest_api_cors_mismatch';
+}
+
 export function isParseError( error: ErrorLike ) {
 	return ( error as ApiError ).code === 'SyntaxError';
 }
