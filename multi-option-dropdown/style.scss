@@ -216,13 +216,26 @@ body.branch-6-6,
 body.branch-6-7,
 body.branch-6-8,
 body.branch-6-9 {
+	.wpl-multioption__button,
+	.actions .button.wpl-multioption__button {
+		min-height: 28px;
+		height: 28px;
+	}
+
+	.wpl-multioption__button .wpl-badge,
+	.actions .wpl-multioption__button .wpl-badge {
+		min-height: 22px;
+		margin-top: 1px;
+		margin-bottom: 1px;
+	}
+
 	.tablenav,
 	.redirect-edit,
 	.inline-edit-row {
 		.wpl-multioption__button,
 		.actions .button.wpl-multioption__button {
-			min-height: 32px;
-			height: 32px;
+			min-height: 30px;
+			height: 30px;
 		}
 
 		.wpl-multioption__button .wpl-badge,
