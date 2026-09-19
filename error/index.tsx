@@ -6,12 +6,12 @@ import DisplayKnownError from './display/error-known';
 import DisplayFixedError from './display/error-fixed';
 import DisplayApiError from './display/error-api';
 import './style.scss';
-import type { ErrorLike } from './types';
+import type { ErrorLike, MaybeError } from './types';
 
 type ErrorComponentProps = {
 	mini?: boolean;
 	locale: string;
-	errors: ErrorLike[] | ErrorLike;
+	errors: MaybeError[] | MaybeError;
 	details?: string[];
 	onClear?: () => void;
 	children?: React.ReactNode;
@@ -66,13 +66,13 @@ function ErrorPaging( {
 	);
 }
 
-function getErrorType( errors: ErrorLike[], type?: string ) {
-	const first = errors[ 0 ] as any;
-	if ( first?.code === 'rest_cookie_invalid_nonce' ) {
+function getErrorType( error: MaybeError, type?: string ) {
+	const current = error as any;
+	if ( current?.code === 'rest_cookie_invalid_nonce' ) {
 		return DisplayNonceError;
 	}
 
-	if ( first?.jsonData?.status === 400 ) {
+	if ( current?.jsonData?.status === 400 ) {
 		return DisplayApiError;
 	}
 
@@ -89,10 +89,12 @@ function getErrorType( errors: ErrorLike[], type?: string ) {
 
 function Error( props: ErrorComponentProps ) {
 	const { onClear, mini = false, type = '' } = props;
-	const errors = useMemo(
-		() => ( Array.isArray( props.errors ) ? props.errors : [ props.errors ] ),
-		[ props.errors ]
-	);
+	const errors = useMemo( () => {
+		const list = Array.isArray( props.errors ) ? props.errors : [ props.errors ];
+
+		// Note an error can be an empty string, which is displayed as a generic error
+		return list.filter( ( error ): error is ErrorLike => error !== undefined && error !== null );
+	}, [ props.errors ] );
 	const [ currentError, setCurrentError ] = useState( 0 );
 
 	useEffect( () => {
@@ -120,7 +122,9 @@ function Error( props: ErrorComponentProps ) {
 		return null;
 	}
 
-	const ErrorComponent = getErrorType( errors, type );
+	// The error list can shrink while paging through it, leaving the current error out of range
+	const currentIndex = Math.min( currentError, errors.length - 1 );
+	const ErrorComponent = getErrorType( errors[ currentIndex ], type );
 	return (
 		<div className={ clsx( 'wpl-error', { 'wpl-error__mini': mini } ) }>
 			{ onClear && (
@@ -130,10 +134,10 @@ function Error( props: ErrorComponentProps ) {
 			) }
 
 			{ errors.length > 1 && (
-				<ErrorPaging current={ currentError } change={ setCurrentError } total={ errors.length } />
+				<ErrorPaging current={ currentIndex } change={ setCurrentError } total={ errors.length } />
 			) }
 
-			<ErrorComponent error={ errors[ currentError ] } { ...( props as any ) } />
+			<ErrorComponent error={ errors[ currentIndex ] } { ...( props as any ) } />
 		</div>
 	);
 }

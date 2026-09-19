@@ -20,3 +20,6 @@ export type ApiError = {
 };
 
 export type ErrorLike = ApiError | Error | string | Record< string, any >;
+
+/** An error that may not actually be there - the error detectors all cope with this */
+export type MaybeError = ErrorLike | undefined | null;

@@ -1,8 +1,7 @@
-import type { ApiError, ErrorLike } from '../types';
+import type { ApiError, MaybeError } from '../types';
 
-export function isSecurityPlugin( error: ErrorLike ) {
-	const apiError = error as ApiError;
-	const { request, code } = apiError;
+export function isSecurityPlugin( error: MaybeError ) {
+	const { request, code } = ( error ?? {} ) as ApiError;
 
 	if ( request && request.status && code ) {
 		return (
@@ -14,48 +13,48 @@ export function isSecurityPlugin( error: ErrorLike ) {
 	return false;
 }
 
-export function isServerError( error: ErrorLike ) {
+export function isServerError( error: MaybeError ) {
 	return [ 500, 502, 503 ].indexOf( ( error as ApiError )?.request?.apiFetch?.status ?? 0 ) !== -1;
 }
 
-export function isNonceError( error: ErrorLike ) {
-	return ( error as ApiError ).code === 'rest_cookie_invalid_nonce';
+export function isNonceError( error: MaybeError ) {
+	return ( error as ApiError )?.code === 'rest_cookie_invalid_nonce';
 }
 
-export function isEmptyResponse( error: ErrorLike ) {
-	return typeof ( error as ApiError ).code !== 'undefined' && ( error as ApiError ).code === 0;
+export function isEmptyResponse( error: MaybeError ) {
+	return ( error as ApiError )?.code === 0;
 }
 
-export function is404( error: ErrorLike ) {
+export function is404( error: MaybeError ) {
 	return ( error as ApiError )?.request?.apiFetch?.status === 404;
 }
 
-export function isTooBig( error: ErrorLike ) {
+export function isTooBig( error: MaybeError ) {
 	return ( error as ApiError )?.request?.apiFetch?.status === 413;
 }
 
-export function isRESTDisabled( error: ErrorLike ) {
-	const code = ( error as ApiError ).code;
+export function isRESTDisabled( error: MaybeError ) {
+	const code = ( error as ApiError )?.code;
 	return code === 'disabled' || code === 'rest_disabled';
 }
 
-export function isUnknownError( error: ErrorLike ) {
-	return typeof ( error as ApiError ).message === 'undefined';
+export function isUnknownError( error: MaybeError ) {
+	return typeof ( error as ApiError )?.message === 'undefined';
 }
 
-export function isRedirectedAPI( error: ErrorLike ) {
+export function isRedirectedAPI( error: MaybeError ) {
 	return ( error as ApiError )?.code === 'rest_api_redirected';
 }
 
-export function isOriginMismatch( error: ErrorLike ) {
+export function isOriginMismatch( error: MaybeError ) {
 	return ( error as ApiError )?.code === 'rest_api_cors_mismatch';
 }
 
-export function isParseError( error: ErrorLike ) {
-	return ( error as ApiError ).code === 'SyntaxError';
+export function isParseError( error: MaybeError ) {
+	return ( error as ApiError )?.code === 'SyntaxError';
 }
 
-export function isFailedFetch( error: ErrorLike ) {
+export function isFailedFetch( error: MaybeError ) {
 	const message = ( error as ApiError )?.message?.toString().toLowerCase();
 
 	if ( message ) {
@@ -69,8 +68,8 @@ export function isFailedFetch( error: ErrorLike ) {
 	return false;
 }
 
-export function isCachedApi( error: ErrorLike ) {
-	const { headers } = ( error as ApiError ).request ?? {};
+export function isCachedApi( error: MaybeError ) {
+	const { headers } = ( error as ApiError )?.request ?? {};
 
 	if ( headers && Symbol.iterator in Object( headers ) ) {
 		for ( const [ key ] of headers as any ) {
@@ -83,7 +82,7 @@ export function isCachedApi( error: ErrorLike ) {
 	return false;
 }
 
-export function isDeprecatedApi( error: ErrorLike ) {
-	const data = ( error as ApiError ).data;
+export function isDeprecatedApi( error: MaybeError ) {
+	const data = ( error as ApiError )?.data;
 	return typeof data === 'string' && data.indexOf( '<b>Deprecated</b>:  Directive' ) !== -1;
 }
