@@ -98,9 +98,6 @@ function Error( props: ErrorComponentProps ) {
 	const [ currentError, setCurrentError ] = useState( 0 );
 
 	useEffect( () => {
-		// A new set of errors always starts at the first one
-		setCurrentError( 0 );
-
 		if ( ! mini && errors.length > 0 ) {
 			window.scrollTo( 0, 0 );
 		}
@@ -125,7 +122,7 @@ function Error( props: ErrorComponentProps ) {
 		return null;
 	}
 
-	// The error list can shrink between renders, and the effect that resets this runs after the render
+	// The error list can shrink while paging through it, leaving the current error out of range
 	const currentIndex = Math.min( currentError, errors.length - 1 );
 	const ErrorComponent = getErrorType( errors[ currentIndex ], type );
 	return (

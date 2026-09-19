@@ -46,21 +46,22 @@ describe( 'Error', () => {
 		expect( screen.getByText( 'Second error' ) ).toBeInTheDocument();
 	} );
 
-	it( 'returns to the first error when a new set of errors arrives', () => {
+	it( 'stays on the current error when the parent rerenders', () => {
 		const { rerender } = renderError( [ { message: 'First error' }, { message: 'Second error' } ] );
 
 		fireEvent.click( screen.getByText( '→' ) );
 
+		// A parent can pass a new array on every render
 		rerender(
 			<Error
-				errors={ [ { message: 'New error' }, { message: 'Another error' } ] }
+				errors={ [ { message: 'First error' }, { message: 'Second error' } ] }
 				links={ links }
 				locale="test"
 			/>
 		);
 
-		expect( screen.getByText( '1/2' ) ).toBeInTheDocument();
-		expect( screen.getByText( 'New error' ) ).toBeInTheDocument();
+		expect( screen.getByText( '2/2' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Second error' ) ).toBeInTheDocument();
 	} );
 
 	it( 'shows the last error when the error list shrinks after paging', () => {
